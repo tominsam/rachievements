@@ -4,7 +4,7 @@ xml.feed "xml:lang" => "en-US", "xmlns" => 'http://www.w3.org/2005/Atom', "xml:b
 
     xml.title @title, :type => 'text'
 
-    xml.id "urn:uuid:#{@guid}"
+    xml.id @guid
 
     xml.generator "Rachievements", :uri => "http://jerakeen.org/code/rachievements/", :version => '0.1'
 
@@ -18,7 +18,7 @@ xml.feed "xml:lang" => "en-US", "xmlns" => 'http://www.w3.org/2005/Atom', "xml:b
             xml.author { xml.name item.character.name }
             xml.published item.created_at.xmlschema
             xml.updated item.updated_at.xmlschema
-            xml.id "urn:uuid:#{@guid}:#{item.id}"
+            xml.id "#{@guid}/#{item.id}"
             xml.title "#{ item.character.name } achieved #{ item.achievement.name }"
             xml.link "rel" => "alternate", "href" => ""
             xml.content item.achievement.description, :type => "html"
