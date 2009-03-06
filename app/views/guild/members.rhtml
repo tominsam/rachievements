@@ -1,14 +1,14 @@
 <%= render :partial => "header" %>
 
-<table id="members" class="rowstyle-evenrow" cellspacing="0" cellpadding="0" border="0">
+<table id="members" class="sortable sortable-onload-0 rowstyle-evenrow" cellspacing="0" cellpadding="0" border="0">
   <thead>
     <tr>
-      <th>name</th>
-      <th>race</th>
-      <th>class</th>
-      <th>level</th>
-      <th>rank</th>
-      <th>achpoints</th>
+      <th class="sortable">name</th>
+      <th class="sortable">race</th>
+      <th class="sortable">class</th>
+      <th class="sortable favour-reverse">level</th>
+      <th class="sortable favour-reverse">rank</th>
+      <th class="sortable favour-reverse">achpoints</th>
     </tr>
   </thead>
   <% for character in @guild.characters %>
@@ -22,10 +22,3 @@
     </tr>
   <% end %>
 </ul>
-
-
-<script type="text/javascript">
-
- $("#members").tablesorter();
- 
-</script>
