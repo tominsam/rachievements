@@ -1,0 +1,9 @@
+<p><%= h @guild.name %> on <%= h @guild.realm %></p>
+
+<p>Last fetched from armory: <%= @guild.fetched_at || "NEVER" %></p>
+
+<ul>
+<% for character in @guild.characters %>
+  <li><%= link_to h(character.name), character_url(character) %> (<%= h character.race %> <%= h character.classname %>)</li>
+<% end %>
+</ul>

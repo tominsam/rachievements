@@ -11,17 +11,33 @@
 
 ActiveRecord::Schema.define(:version => 20090306152245) do
 
-  create_table "achievement_toons", :force => true do |t|
-    t.integer  "toon_id",        :null => false
+  create_table "achievements", :force => true do |t|
+    t.string   "name",        :null => false
+    t.text     "description", :null => false
+    t.integer  "armory_id",   :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "character_achievements", :force => true do |t|
+    t.integer  "character_id",   :null => false
     t.integer  "achievement_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "achievements", :force => true do |t|
-    t.string   "name",        :null => false
-    t.text     "description", :null => false
-    t.integer  "armory_id",   :null => false
+  create_table "characters", :force => true do |t|
+    t.string   "name",       :limit => 64, :null => false
+    t.string   "urltoken",   :limit => 64, :null => false
+    t.integer  "realm_id",                 :null => false
+    t.integer  "guild_id"
+    t.integer  "rank",                     :null => false
+    t.integer  "achpoints",                :null => false
+    t.string   "race",       :limit => 16, :null => false
+    t.string   "classname",  :limit => 16, :null => false
+    t.string   "gender",     :limit => 16, :null => false
+    t.integer  "level",                    :null => false
+    t.datetime "fetched_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -39,22 +55,6 @@ ActiveRecord::Schema.define(:version => 20090306152245) do
     t.string   "name",       :limit => 64, :null => false
     t.string   "urltoken",   :limit => 64, :null => false
     t.string   "region",     :limit => 2,  :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "toons", :force => true do |t|
-    t.string   "name",       :limit => 64, :null => false
-    t.string   "urltoken",   :limit => 64, :null => false
-    t.integer  "realm_id",                 :null => false
-    t.integer  "guild_id"
-    t.integer  "rank",                     :null => false
-    t.integer  "achpoints",                :null => false
-    t.string   "race",       :limit => 16, :null => false
-    t.string   "classname",  :limit => 16, :null => false
-    t.string   "gender",     :limit => 16, :null => false
-    t.integer  "level",                    :null => false
-    t.datetime "fetched_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

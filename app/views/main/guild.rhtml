@@ -1,9 +1,0 @@
-<p><%= h @guild.name %> on <%= h @guild.realm %></p>
-
-<p>Last fetched from armory: <%= @guild.fetched_at || "NEVER" %></p>
-
-<ul>
-<% for toon in @guild.toons %>
-  <li><%= link_to h(toon.name), toon_url(toon) %> (<%= h toon.race %> <%= h toon.classname %>)</li>
-<% end %>
-</ul>

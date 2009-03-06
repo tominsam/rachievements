@@ -5,8 +5,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.connect "/", :controller => "main", :action => "index"
 
-  map.connect '/:region/:realm/character/:toon', :controller => "main", :action => "toon"
-  map.connect '/:region/:realm/guild/:guild', :controller => "main", :action => "guild"
+  map.connect '/:region/:realm/:controller/:name/:action', :action => "index"
 
   #map.connect ':controller/:action/:id'
   #map.connect ':controller/:action/:id.:format'

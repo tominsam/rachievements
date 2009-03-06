@@ -1,14 +1,14 @@
-class Toon < ActiveRecord::Base
+class Character < ActiveRecord::Base
     belongs_to :realm
     belongs_to :guild
 
-    has_many :achievement_toons
-    has_many :achievements, :through => :achievement_toons, :order => "recorded_at"
+    has_many :character_achievements
+    has_many :achievements, :through => :character_achievements, :order => "recorded_at"
 
     validates_uniqueness_of :name, :scope => :realm_id
     
     def to_s
-        return "#<Toon #{ self.name } / #{ self.realm.name } / #{ self.realm.region.upcase }>"
+        return "#<Character #{ self.name } / #{ self.realm.name } / #{ self.realm.region.upcase }>"
     end
     
     def before_save
@@ -40,19 +40,19 @@ class Toon < ActiveRecord::Base
                 ach.save!
             end
             
-            atoon = self.achievement_toons.find_by_achievement_id( ach.id )
-            if atoon.nil?
-                atoon = self.achievement_toons.new( :achievement_id => ach.id )
+            cach = self.character_achievements.find_by_achievement_id( ach.id )
+            if cach.nil?
+                cach = self.character_achievements.new( :achievement_id => ach.id )
                 
                 # there's no time-level resolution on this stuff. So
                 # if it was completed today, assume it was completed at scan time,
                 # otherwise back-date it to the day we saw it on.
                 if achievement['datecompleted'][0,10] == Time.now.iso8601[0,10]
-                    atoon.created_at = Time.now
+                    cach.created_at = Time.now
                 else
-                    atoon.created_at = Date.parse(achievement['datecompleted'][0,10]).to_time
+                    cach.created_at = Date.parse(achievement['datecompleted'][0,10]).to_time
                 end
-                atoon.save!
+                cach.save!
             end
         end
         self.fetched_at = Time.now

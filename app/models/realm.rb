@@ -1,6 +1,6 @@
 class Realm < ActiveRecord::Base
     has_many :guilds
-    has_many :toons    
+    has_many :characters    
 
     validates_uniqueness_of :name, :scope => :region
     

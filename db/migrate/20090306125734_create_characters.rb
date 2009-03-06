@@ -1,6 +1,6 @@
-class CreateToons < ActiveRecord::Migration
+class CreateCharacters < ActiveRecord::Migration
   def self.up
-    create_table :toons do |t|
+    create_table :characters do |t|
       t.string :name, :null => false, :limit => 64
       t.string :urltoken, :null => false, :limit => 64
       t.integer :realm_id, :null => false
@@ -21,6 +21,6 @@ class CreateToons < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :toons
+    drop_table :characters
   end
 end

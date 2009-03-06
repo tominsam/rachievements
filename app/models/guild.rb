@@ -1,6 +1,6 @@
 class Guild < ActiveRecord::Base
     belongs_to :realm
-    has_many :toons
+    has_many :characters
     
     validates_uniqueness_of :name, :scope => :realm_id
     
@@ -30,13 +30,13 @@ class Guild < ActiveRecord::Base
         end
 
         (xml/"character").each do |character|
-            toon = self.realm.toons.find_by_name( character['name'] ) || self.realm.toons.new( :name => character[:name] )
+            char = self.realm.characters.find_by_name( character['name'] ) || self.realm.characters.new( :name => character[:name] )
 
             [ :race, :class, :gender, :level, :rank, :achpoints ].each do |p|
-                toon[(p == :class) ? :classname : p] = character[p.to_s]
+                char[(p == :class) ? :classname : p] = character[p.to_s]
             end
-            toon.guild = self
-            toon.save!
+            char.guild = self
+            char.save!
         end
         self.fetched_at = Time.now
         self.save!
