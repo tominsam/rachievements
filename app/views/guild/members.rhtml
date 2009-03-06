@@ -1,7 +1,31 @@
 <%= render :partial => "header" %>
 
-<ul>
-<% for character in @guild.characters %>
-  <li><%= link_to h(character.name), character_url(character) %> (<%= h character.race %> <%= h character.classname %>)</li>
-<% end %>
+<table id="members" class="rowstyle-evenrow" cellspacing="0" cellpadding="0" border="0">
+  <thead>
+    <tr>
+      <th>name</th>
+      <th>race</th>
+      <th>class</th>
+      <th>level</th>
+      <th>rank</th>
+      <th>achpoints</th>
+    </tr>
+  </thead>
+  <% for character in @guild.characters %>
+    <tr>
+      <td><%= link_to h(character.name), character_url(character) %></td>
+      <td><%= h character.race %></td>
+      <td><%= h character.classname %></td>
+      <td><%= h character.level %></td>
+      <td><%= h character.rank %></td>
+      <td><%= h character.achpoints %></td>
+    </tr>
+  <% end %>
 </ul>
+
+
+<script type="text/javascript">
+
+ $("#members").tablesorter();
+ 
+</script>

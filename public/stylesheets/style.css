@@ -69,3 +69,12 @@ ul {
   margin-left: 1.4em;
   margin-right: 4em;
 }
+
+table td, table th {
+    padding: 3px 10px 3px 3px;
+    margin: 3px;
+}
+
+.evenrow {
+    background: #ddd;
+}
