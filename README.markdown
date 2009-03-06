@@ -1,0 +1,4 @@
+A ruby server for amalgamating guild achievement feeds.
+
+It's _incredibly_ early - don't expect to see anything in the source other than a couple of models. But the intent is to replace [GuildAchievements](http://jerakeen.org/code/guildachievements) with something that I can run for other people and will thereofre be useful.
+
