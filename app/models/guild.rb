@@ -23,15 +23,15 @@ class Guild < ActiveRecord::Base
 
         (xml/"character").each do |character|
             puts character['name']
-            toon = self.realm.toons.find_or_create_by_name( character['name'] )
+            toon = self.realm.toons.find_by_name( character['name'] ) || self.realm.toons.new( :name => character[:name] )
 
             [ :race, :class, :gender, :level, :rank, :achpoints ].each do |p|
                 toon[(p == :class) ? :classname : p] = character[p.to_s]
             end
             toon.guild = self
-            
             toon.save!
         end
-        self.toons.reload
+        self.fetched_at = Time.now
+        self.save!
     end
 end

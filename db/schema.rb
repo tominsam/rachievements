@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(:version => 20090306152245) do
     t.string   "name",       :limit => 64
     t.string   "urltoken",   :limit => 64, :null => false
     t.integer  "realm_id",                 :null => false
+    t.datetime "fetched_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -43,7 +44,8 @@ ActiveRecord::Schema.define(:version => 20090306152245) do
   end
 
   create_table "toons", :force => true do |t|
-    t.string   "name",                     :null => false
+    t.string   "name",       :limit => 64, :null => false
+    t.string   "urltoken",   :limit => 64, :null => false
     t.integer  "realm_id",                 :null => false
     t.integer  "guild_id"
     t.integer  "rank",                     :null => false
@@ -52,6 +54,7 @@ ActiveRecord::Schema.define(:version => 20090306152245) do
     t.string   "classname",  :limit => 16, :null => false
     t.string   "gender",     :limit => 16, :null => false
     t.integer  "level",                    :null => false
+    t.datetime "fetched_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

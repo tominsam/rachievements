@@ -4,6 +4,8 @@ class CreateGuilds < ActiveRecord::Migration
       t.string :name, :limit => 64
       t.string :urltoken, :limit => 64, :null => false
       t.integer :realm_id, :null => false
+      
+      t.datetime :fetched_at
 
       t.timestamps
     end

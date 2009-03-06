@@ -7,5 +7,8 @@ class Toon < ActiveRecord::Base
 
     validates_uniqueness_of :name, :scope => :realm_id
     
+    def before_save
+        self.urltoken ||= self.name.downcase.gsub(/ /,'-')
+    end
     
 end
