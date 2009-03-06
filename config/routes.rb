@@ -1,6 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
 
-  map.connect '/guild/:region/:realm/:urltoken/:toon', :controller => "guild", :action => "index", :toon => nil
+  map.connect '/guild/:region/:realm/:guild/:toon', :controller => "guild", :action => "index", :toon => nil
   
   map.connect "/user/:username/:action", :controller => "user", :action => "index"
 

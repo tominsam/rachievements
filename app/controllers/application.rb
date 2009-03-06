@@ -13,6 +13,8 @@ class ApplicationController < ActionController::Base
   # from your application log (in this case, all fields with names like "password"). 
   # filter_parameter_logging :password
   
+  protected
+  
   def render_404
       render :file => "public/404.html", :status => 404
       return false
@@ -26,4 +28,12 @@ class ApplicationController < ActionController::Base
       return url_for({ :controller => "guild", :action => "index", :region => guild.realm.region, :realm => guild.realm.name, :urltoken => guild.urltoken }.merge(extra))
   end
   
+  def realm_from_params
+      @realm = Realm.find_by_region_and_urltoken( params[:region], params[:realm] )
+      if @realm.nil?
+          return render_404
+      end
+      return true
+  end
+
 end

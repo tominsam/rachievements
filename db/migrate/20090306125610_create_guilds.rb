@@ -2,10 +2,9 @@ class CreateGuilds < ActiveRecord::Migration
   def self.up
     create_table :guilds do |t|
       t.string :name, :limit => 64
-      t.string :urltoken
-      t.integer :realm_id
+      t.string :urltoken, :limit => 64, :null => false
+      t.integer :realm_id, :null => false
 
-      t.datetime :fetched_at
       t.timestamps
     end
   end

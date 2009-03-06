@@ -7,8 +7,8 @@ class Guild < ActiveRecord::Base
     
     validates_uniqueness_of :name, :scope => :realm_id
     
-    def urltoken
-        return self.name.downcase.gsub(/ /,'-')
+    def before_save
+        self.urltoken ||= self.name.downcase.gsub(/ /,'-')
     end
     
     def armory_url
@@ -28,7 +28,6 @@ class Guild < ActiveRecord::Base
             [ :race, :class, :gender, :level, :rank, :achpoints ].each do |p|
                 toon[(p == :class) ? :classname : p] = character[p.to_s]
             end
-            toon.fetched_at = Time.now
             toon.guild = self
             
             toon.save!

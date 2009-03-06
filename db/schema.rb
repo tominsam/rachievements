@@ -12,56 +12,54 @@
 ActiveRecord::Schema.define(:version => 20090306152245) do
 
   create_table "achievement_toons", :force => true do |t|
-    t.integer  "toon_id"
-    t.integer  "achievement_id"
-    t.datetime "recorded_at"
+    t.integer  "toon_id",        :null => false
+    t.integer  "achievement_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "achievements", :force => true do |t|
-    t.string   "name"
-    t.string   "description"
-    t.integer  "armory_id"
+    t.string   "name",        :null => false
+    t.text     "description", :null => false
+    t.integer  "armory_id",   :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "guilds", :force => true do |t|
     t.string   "name",       :limit => 64
-    t.string   "urltoken"
-    t.integer  "realm_id"
-    t.datetime "fetched_at"
+    t.string   "urltoken",   :limit => 64, :null => false
+    t.integer  "realm_id",                 :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "realms", :force => true do |t|
-    t.string   "name",       :limit => 64
-    t.string   "region"
+    t.string   "name",       :limit => 64, :null => false
+    t.string   "urltoken",   :limit => 64, :null => false
+    t.string   "region",     :limit => 2,  :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "toons", :force => true do |t|
-    t.string   "name"
-    t.integer  "realm_id"
+    t.string   "name",                     :null => false
+    t.integer  "realm_id",                 :null => false
     t.integer  "guild_id"
-    t.integer  "rank"
-    t.integer  "achpoints"
-    t.string   "race",       :limit => 16
-    t.string   "classname",  :limit => 16
-    t.string   "gender",     :limit => 16
-    t.integer  "level"
-    t.datetime "fetched_at"
+    t.integer  "rank",                     :null => false
+    t.integer  "achpoints",                :null => false
+    t.string   "race",       :limit => 16, :null => false
+    t.string   "classname",  :limit => 16, :null => false
+    t.string   "gender",     :limit => 16, :null => false
+    t.integer  "level",                    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|
-    t.string   "username"
-    t.string   "name"
+    t.string   "email",       :null => false
     t.string   "md5password"
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
