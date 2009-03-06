@@ -1,6 +1,7 @@
 <p><%= h @guild.name %> on <%= h @guild.realm %></p>
 
 <p>Last fetched from armory: <%= @guild.fetched_at || "NEVER" %></p>
+<p><%= link_to "feed", :action => "feed" %></p>
 
 <ul>
 <% for character in @guild.characters %>

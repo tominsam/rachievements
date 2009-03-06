@@ -1,5 +1,9 @@
 <p><%= h @character.name %> of <%= link_to h(@character.guild.name), guild_url(@character.guild) %></p>
 <p><%= h @character.race %> <%= h @character.classname %></p>
+
+<p>Last fetched from armory: <%= @character.fetched_at || "NEVER" %></p>
+<p><%= link_to "feed", :action => "feed" %></p>
+
 <ul>
 <% for cach in @character.character_achievements %>
   <li><%= cach.achievement.name %> at <%= cach.created_at %></li>
