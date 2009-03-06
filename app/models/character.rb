@@ -2,8 +2,7 @@ class Character < ActiveRecord::Base
     belongs_to :realm
     belongs_to :guild
 
-    has_many :character_achievements
-    has_many :achievements, :through => :character_achievements, :order => "recorded_at"
+    has_many :character_achievements, :order => "created_at desc"
 
     validates_uniqueness_of :name, :scope => :realm_id
     

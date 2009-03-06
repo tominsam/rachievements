@@ -1,6 +1,7 @@
 class Guild < ActiveRecord::Base
     belongs_to :realm
-    has_many :characters
+    has_many :characters, :order => "rank"
+    has_many :character_achievements, :through => :characters, :order => "created_at desc"
     
     validates_uniqueness_of :name, :scope => :realm_id
     
