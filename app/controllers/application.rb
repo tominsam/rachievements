@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
     
     helper_method :toon_url
     def toon_url( toon, extra = {} )
-        return guild_url( toon.guild, :toon => toon.urltoken )
+        return guild_url( toon.guild, :action => "toon", :toon => toon.urltoken )
     end
 
 end

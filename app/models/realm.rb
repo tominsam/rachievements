@@ -13,7 +13,7 @@ class Realm < ActiveRecord::Base
     end
     
     def to_s
-        return self.name + "/" + self.region.upcase
+        return "#{self.name} / #{self.region.upcase}"
     end
     
 end

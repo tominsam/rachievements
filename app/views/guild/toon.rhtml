@@ -1,2 +1,7 @@
 <p><%= h @toon.name %> of <%= @guild.name %></p>
 <p><%= h @toon.race %> <%= h @toon.classname %></p>
+<ul>
+<% for atoon in @toon.achievement_toons.all( :include => :achievement ) %>
+  <li><%= atoon.achievement.name %> at <%= atoon.created_at %></li>
+<% end %>
+</ul>
