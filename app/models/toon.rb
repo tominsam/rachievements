@@ -8,7 +8,7 @@ class Toon < ActiveRecord::Base
     validates_uniqueness_of :name, :scope => :realm_id
     
     def to_s
-        return "#<Toon #{ self.name } of #{ self.guild }>"
+        return "#<Toon #{ self.name } / #{ self.realm.name } / #{ self.realm.region.upcase }>"
     end
     
     def before_save

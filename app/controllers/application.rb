@@ -28,12 +28,12 @@ class ApplicationController < ActionController::Base
 
     helper_method :guild_url
     def guild_url( guild, extra = {} )
-        return url_for({ :controller => "guild", :action => "index", :region => guild.realm.region, :realm => guild.realm.urltoken, :guild => guild.urltoken }.merge(extra))
+        return url_for({ :controller => "main", :action => "guild", :region => guild.realm.region, :realm => guild.realm.urltoken, :guild => guild.urltoken }.merge(extra))
     end
     
     helper_method :toon_url
     def toon_url( toon, extra = {} )
-        return guild_url( toon.guild, :action => "toon", :toon => toon.urltoken )
+        return url_for({ :controller => "main", :action => "toon", :region => toon.realm.region, :realm => toon.realm.urltoken, :toon => toon.urltoken }.merge(extra))
     end
 
 end
