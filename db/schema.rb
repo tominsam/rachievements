@@ -9,14 +9,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090306152245) do
+ActiveRecord::Schema.define(:version => 20090306190706) do
 
   create_table "achievements", :force => true do |t|
-    t.string   "name",        :null => false
-    t.text     "description", :null => false
-    t.integer  "armory_id",   :null => false
+    t.string   "name",                        :null => false
+    t.text     "description",                 :null => false
+    t.integer  "armory_id",                   :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "icon_filename", :limit => 64
   end
 
   create_table "character_achievements", :force => true do |t|
