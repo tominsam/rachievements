@@ -1,7 +1,3 @@
 class User < ActiveRecord::Base
-    has_many :guilds
-    
-    def urltoken
-        return self.username
-    end
+    validates_uniqueness_of :username
 end

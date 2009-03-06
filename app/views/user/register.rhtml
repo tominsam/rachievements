@@ -1,1 +1,10 @@
 <p>Register</p>
+
+<% form_for :user, @user do |f| %>
+  <%= f.error_messages %>
+
+  <p><%= f.label :username %>: <%= f.text_field :username %></p>
+  <p><%= f.label :name %>: <%= f.text_field :name %></p>
+
+  <p><%= f.submit @user.id ? "Save" : "Register" %></p>
+<% end %>

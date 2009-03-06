@@ -6,7 +6,12 @@ class UserController < ApplicationController
     end
     
     def register
-        
+        @user = User.new( params[:user] )
+        if request.post?
+            if @user.save
+                redirect_to user_url( @user )
+            end
+        end
     end
     
     

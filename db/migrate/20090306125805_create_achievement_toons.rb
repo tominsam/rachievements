@@ -3,7 +3,7 @@ class CreateAchievementToons < ActiveRecord::Migration
     create_table :achievement_toons do |t|
       t.integer :toon_id
       t.integer :achievement_id
-      t.date :date
+      t.datetime :recorded_at
 
       t.timestamps
     end

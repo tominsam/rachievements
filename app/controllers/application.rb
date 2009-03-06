@@ -13,10 +13,17 @@ class ApplicationController < ActionController::Base
   # from your application log (in this case, all fields with names like "password"). 
   # filter_parameter_logging :password
   
-  
   def render_404
       render :file => "public/404.html", :status => 404
       return false
+  end
+  
+  def user_url( user, extra = {} )
+      return url_for({ :controller => "user", :action => "index", :username => user.username }.merge(extra))
+  end
+  
+  def guild_url( guild, extra = {} )
+      return url_for({ :controller => "guild", :action => "index", :region => guild.realm.region, :realm => guild.realm.name, :urltoken => guild.urltoken }.merge(extra))
   end
   
 end

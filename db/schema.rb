@@ -9,12 +9,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090306125805) do
+ActiveRecord::Schema.define(:version => 20090306152245) do
 
   create_table "achievement_toons", :force => true do |t|
     t.integer  "toon_id"
     t.integer  "achievement_id"
-    t.date     "date"
+    t.datetime "recorded_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -28,17 +28,32 @@ ActiveRecord::Schema.define(:version => 20090306125805) do
   end
 
   create_table "guilds", :force => true do |t|
-    t.string   "name"
-    t.string   "server"
-    t.string   "continent"
-    t.integer  "user_id"
+    t.string   "name",       :limit => 64
+    t.string   "urltoken"
+    t.integer  "realm_id"
+    t.datetime "fetched_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "realms", :force => true do |t|
+    t.string   "name",       :limit => 64
+    t.string   "region"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "toons", :force => true do |t|
     t.string   "name"
+    t.integer  "realm_id"
     t.integer  "guild_id"
+    t.integer  "rank"
+    t.integer  "achpoints"
+    t.string   "race",       :limit => 16
+    t.string   "classname",  :limit => 16
+    t.string   "gender",     :limit => 16
+    t.integer  "level"
+    t.datetime "fetched_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
