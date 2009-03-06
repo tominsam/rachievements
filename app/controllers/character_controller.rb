@@ -5,7 +5,7 @@ class CharacterController < ApplicationController
     def feed
         # TODO - there's probably a useful helper for this stuff.
         @title = "Achievements for #{ @character.name }"
-        @guid = "tag:rachievments.heroku.com:/#{ @realm.region }/#{ @realm.urltoken }/character/#{ @character.urltoken }"
+        @guid = "tag:achievements.heroku.com,2009-03-06:/#{ @realm.region }/#{ @realm.urltoken }/character/#{ @character.urltoken }"
         @items = @character.character_achievements.all( :limit => 20, :order => "created_at desc" )
         render :template => "shared/feed", :layout => false
     end
