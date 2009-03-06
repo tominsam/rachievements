@@ -4,6 +4,6 @@
 
 <ul>
 <% for toon in @guild.toons %>
-<li><%= link_to h(toon.name), toon_url(toon) %>  - <%= h toon.race %> <%= h toon.class %></li>
+<li><%= link_to h(toon.name), toon_url(toon) %>  - <%= h toon.race %> <%= h toon.classname %></li>
 <% end %>
 </ul>
