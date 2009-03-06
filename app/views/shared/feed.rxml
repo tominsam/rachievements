@@ -21,7 +21,7 @@ xml.feed "xml:lang" => "en-US", "xmlns" => 'http://www.w3.org/2005/Atom', "xml:b
             xml.id "urn:uuid:#{@guid}:#{item.id}"
             xml.title "#{ item.character.name } achieved #{ item.achievement.name }"
             xml.link "rel" => "alternate", "href" => ""
-            xml.content render( :partial => "shared/single_achievement", :object => item ), :type => "html"
+            xml.content item.achievement.description, :type => "html"
         end
     end
 end
