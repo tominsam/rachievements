@@ -1,6 +1,6 @@
 <h1><%= h @guild.name %> on <%= h @guild.realm %></h1>
 
-<p>Last fetched from armory: <%= @guild.fetched_at || "NEVER" %></p>
+<p>Last fetched from <%= link_to "armory", @guild.armory_url %>: <%= @guild.fetched_at || "NEVER" %></p>
 
 <p>
   <%= link_to_if params[:action] != "index", "Achievements", :action => "index" %>
