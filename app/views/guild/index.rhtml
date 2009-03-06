@@ -1,10 +1,7 @@
-<p><%= h @guild.name %> on <%= h @guild.realm %></p>
-
-<p>Last fetched from armory: <%= @guild.fetched_at || "NEVER" %></p>
-<p><%= link_to "feed", :action => "feed" %></p>
+<%= render :partial => "header" %>
 
 <ul>
-<% for character in @guild.characters %>
-  <li><%= link_to h(character.name), character_url(character) %> (<%= h character.race %> <%= h character.classname %>)</li>
+<% for cach in @guild.character_achievements %>
+  <li><%= link_to cach.character.name, character_url( cach.character ) %> achieved '<%= cach.achievement.name %>' <%= time_ago_in_words cach.created_at %> ago.</li>
 <% end %>
 </ul>

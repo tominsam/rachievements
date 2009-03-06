@@ -20,6 +20,8 @@ class Character < ActiveRecord::Base
 
     def refresh_from_armory
         puts "-- refreshing #{self}"
+        require 'hpricot'
+        require 'open-uri'
 
         begin
             xml = open(self.armory_url, "User-agent" => 'Mozilla/5.0 (Windows; U; Windows NT 5.0; en-GB; rv:1.8.1.4) Gecko/20070515 Firefox/2.0.0.4') do |f|

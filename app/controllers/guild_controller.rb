@@ -9,13 +9,14 @@ class GuildController < ApplicationController
         @items = @guild.character_achievements.all( :limit => 50, :order => "created_at desc" )
         render :template => "shared/feed", :layout => false
     end
-
+    
     protected
     def guild_from_params
         @guild = @realm.guilds.find_by_urltoken( params[:name], :include => [ :characters ] )
         if @guild.nil?
             return render_404
         end
+        @title = "Achievements for #{ @guild.name }"
         return true
     end
     

@@ -1,0 +1,7 @@
+<%= render :partial => "header" %>
+
+<ul>
+<% for character in @guild.characters %>
+  <li><%= link_to h(character.name), character_url(character) %> (<%= h character.race %> <%= h character.classname %>)</li>
+<% end %>
+</ul>

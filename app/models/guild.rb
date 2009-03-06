@@ -19,6 +19,8 @@ class Guild < ActiveRecord::Base
     
     def refresh_from_armory
         puts "-- refreshing #{self}"
+        require 'hpricot'
+        require 'open-uri'
 
         # I like hpricot, ok?
         begin

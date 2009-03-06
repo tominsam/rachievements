@@ -16,6 +16,7 @@ class CharacterController < ApplicationController
         if @character.nil?
             return render_404
         end
+        @title = "Achievements for #{ @character.name }"
         return true
     end
 
