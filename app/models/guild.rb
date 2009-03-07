@@ -6,15 +6,19 @@ class Guild < ActiveRecord::Base
     validates_uniqueness_of :name, :scope => :realm_id
     
     def to_s
-        return "#<Guild #{self.name} / #{self.realm.name} / #{self.realm.region.upcase}>"
+        "#<Guild #{self.name} / #{self.realm.name} / #{self.realm.region.upcase}>"
+    end
+    
+    def to_param
+      self.urltoken
     end
     
     def before_save
-        self.urltoken ||= self.name.downcase.gsub(/ /,'-')
+      self.urltoken ||= self.name.downcase.gsub(/ /,'-')
     end
     
     def armory_url
-        return "http://#{self.realm.hostname}/guild-info.xml?r=#{ CGI.escape( self.realm.name ) }&n=#{ CGI.escape( self.name ) }&p=1"
+        "http://#{self.realm.hostname}/guild-info.xml?r=#{ CGI.escape( self.realm.name ) }&n=#{ CGI.escape( self.name ) }&p=1"
     end
     
     def refresh_from_armory
