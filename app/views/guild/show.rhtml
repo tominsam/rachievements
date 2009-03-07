@@ -1,0 +1,11 @@
+<% content_for :rss_autodiscovery do %>
+<%= auto_discovery_link_tag(:rss, {:action => "feed"}) %>
+<% end %>
+
+<%= render :partial => "header" %>
+
+<ul>
+<% for cach in @guild.character_achievements %>
+  <li><%= link_to cach.character.name, character_url( cach.character ) %> achieved '<%= cach.achievement.name %>' <%= time_ago_in_words cach.created_at %> ago.</li>
+<% end %>
+</ul>
