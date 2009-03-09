@@ -1,7 +1,7 @@
 class Guild < ActiveRecord::Base
     belongs_to :realm
     has_many :characters, :order => "rank"
-    has_many :character_achievements, :through => :characters, :order => "created_at desc"
+    has_many :character_achievements, :through => :characters, :order => "character_achievements.created_at desc", :include => [ :achievement ] # TODO - because we're through characters here, we can't include characters?
     
     validates_uniqueness_of :name, :scope => :realm_id
     
