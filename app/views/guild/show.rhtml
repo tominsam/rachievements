@@ -1,5 +1,5 @@
 <% content_for :rss_autodiscovery do %>
-<%= auto_discovery_link_tag(:rss, {:action => "feed"}) %>
+<%= auto_discovery_link_tag(:atom, {:action => "feed"}) %>
 <% end %>
 
 <%= render :partial => "header" %>
