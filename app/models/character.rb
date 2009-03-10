@@ -54,7 +54,7 @@ class Character < ActiveRecord::Base
                 if achievement['datecompleted'][0,10] == Time.now.iso8601[0,10]
                     cach.created_at = Time.now
                 else
-                    cach.created_at = Date.parse(achievement['datecompleted'][0,10]).to_time
+                    cach.created_at = Date.parse(achievement['datecompleted'][0,10] + "T23:59:59").to_time
                 end
                 cach.save!
             end
