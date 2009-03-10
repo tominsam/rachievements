@@ -1,6 +1,6 @@
 # I'm sure that this is a builtin or something. Must be. It seems obvious.
 $threads = []
-$poolsize = 10
+$poolsize = 5
 def do_in_thread( obj, &block )
     while $threads.size >= $poolsize
         $threads.shift.join
