@@ -1,6 +1,6 @@
 # I'm sure that this is a builtin or something. Must be. It seems obvious.
 $threads = []
-$poolsize = 4
+$poolsize = 10
 def do_in_thread( obj, &block )
     while $threads.size >= $poolsize
         $threads.shift.join
@@ -17,7 +17,10 @@ end
 # and no others of that class. note that touching a guild object can update Character
 # objects, though, so make sure we wait_for_threads after updating the guilds.
 
+
 task :cron => :environment do
+    ActiveRecord::Base.allow_concurrency = true # DOOM
+
     Guild.all.each{|g|
         do_in_thread(g) { |guild|
             guild.refresh_from_armory
