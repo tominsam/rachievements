@@ -1,5 +1,5 @@
 <h1><%= h @character.name %> of <%= link_to h(@character.guild.name), guild_url(@character.guild) %> - level <%= @character.level %> <%= h @character.race %> <%= h @character.classname %></h1>
-<p>Last fetched from <%= link_to "armory", @character.armory_url %>: <%= @character.fetched_at || "NEVER" %></p>
+<p>Last fetched from <%= link_to "armory", @character.armory_url %>: <%= @character.fetched_at ? time_ago_in_words( @character.fetched_at ) + " ago" : "never" %></p>
 
 <p>
   <%= link_to_if params[:action] != "show", "Achievements", :action => "show" %>
