@@ -28,7 +28,7 @@ class Character < ActiveRecord::Base
                 Hpricot(f)
             end
         rescue Exception => e
-            puts "** Error fetching: #{ e }"
+            puts "** Error fetching #{ self }: #{ e }"
             return
         end
 
