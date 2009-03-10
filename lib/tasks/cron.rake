@@ -21,7 +21,7 @@ end
 task :cron => :environment do
     ActiveRecord::Base.allow_concurrency = true # DOOM
 
-    Guild.find(:all, :conditions => [ "fetched_at < ? or fetched_at is null", Time.now - 30.minutes ], :order => "fetched_at" ).each{|g|
+    Guild.find(:all, :conditions => [ "fetched_at < ? or fetched_at is null", Time.now.utc - 30.minutes ], :order => "fetched_at" ).each{|g|
         do_in_thread(g) { |guild|
             guild.refresh_from_armory
         }
@@ -29,7 +29,7 @@ task :cron => :environment do
     wait_for_threads
     puts "** guild fetch complete"
 
-    Character.find(:all, :conditions => [ "fetched_at < ? or fetched_at is null", Time.now - 2.hours ], :order => "fetched_at" ).each{|c|
+    Character.find(:all, :conditions => [ "fetched_at < ? or fetched_at is null", Time.now.utc - 2.hours ], :order => "fetched_at" ).each{|c|
         do_in_thread(c) { |character|
             character.refresh_from_armory
         }

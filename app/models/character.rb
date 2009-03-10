@@ -59,7 +59,7 @@ class Character < ActiveRecord::Base
                 cach.save!
             end
         end
-        self.fetched_at = Time.now
+        self.fetched_at = Time.now.utc
         self.save!
     end
     
