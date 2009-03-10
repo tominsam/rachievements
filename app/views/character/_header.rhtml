@@ -2,7 +2,7 @@
 <p>Last fetched from <%= link_to "armory", @character.armory_url %>: <%= @character.fetched_at || "NEVER" %></p>
 
 <p>
-  <%= link_to_if params[:action] != "index", "Achievements", :action => "index" %>
+  <%= link_to_if params[:action] != "show", "Achievements", :action => "show" %>
   | <%= link_to "atom feed", :action => "feed" %>
 </p>
 
