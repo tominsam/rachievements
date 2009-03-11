@@ -24,18 +24,22 @@ task :cron => :environment do
     Guild.find(:all, :conditions => [ "fetched_at < ? or fetched_at is null", Time.now.utc - 30.minutes ], :order => "fetched_at" ).each{|g|
         do_in_thread(g) { |guild|
             guild.refresh_from_armory
+            $stdout.flush
         }
     }
     wait_for_threads
     puts "** guild fetch complete"
+    $stdout.flush
 
     Character.find(:all, :conditions => [ "fetched_at < ? or fetched_at is null", Time.now.utc - 2.hours ], :order => "fetched_at" ).each{|c|
         do_in_thread(c) { |character|
             character.refresh_from_armory
+            $stdout.flush
         }
     }
     wait_for_threads
     puts "** character fetch complete"
+    $stdout.flush
 end
 
 
