@@ -1,6 +1,8 @@
+# this is limited by both the DB connections I can make, and how much I want to thrash the armoury
+$poolsize = 3
+
 # I'm sure that this is a builtin or something. Must be. It seems obvious.
 $threads = []
-$poolsize = 5
 def do_in_thread( obj, &block )
     while $threads.size >= $poolsize
         $threads.shift.join

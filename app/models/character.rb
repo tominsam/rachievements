@@ -18,7 +18,7 @@ class Character < ActiveRecord::Base
         return "http://#{self.realm.hostname}/character-achievements.xml?r=#{ CGI.escape( self.realm.name ) }&n=#{ CGI.escape( self.name ) }"
     end
 
-    def refresh_from_armory
+    def refresh_from_armory( rebuild = false )
         puts "-- refreshing #{self}"
         require 'hpricot'
         require 'open-uri'
@@ -30,6 +30,10 @@ class Character < ActiveRecord::Base
         rescue Exception => e
             puts "** Error fetching #{ self }: #{ e }"
             return
+        end
+        
+        if rebuild # dangerous!
+            self.character_achievements.destroy_all
         end
 
         (xml/"achievement").each do |achievement|
@@ -51,10 +55,9 @@ class Character < ActiveRecord::Base
                 # there's no time-level resolution on this stuff. So
                 # if it was completed today, assume it was completed at scan time,
                 # otherwise back-date it to the day we saw it on.
+                cach.created_at = Time.parse(achievement['datecompleted'][0,10] + "T23:59:59").to_time
                 if achievement['datecompleted'][0,10] == Time.now.iso8601[0,10]
                     cach.created_at = Time.now
-                else
-                    cach.created_at = Date.parse(achievement['datecompleted'][0,10] + "T23:59:59").to_time
                 end
                 cach.save!
             end
