@@ -3,12 +3,13 @@
 <table id="members" class="sortable sortable-onload-0 rowstyle-evenrow" cellspacing="0" cellpadding="0" border="0">
   <thead>
     <tr>
-      <th class="sortable">name</th>
-      <th class="sortable">race</th>
-      <th class="sortable">class</th>
-      <th class="sortable favour-reverse">level</th>
-      <th class="sortable favour-reverse">rank</th>
-      <th class="sortable favour-reverse">achpoints</th>
+      <th class="sortable">Name</th>
+      <th class="sortable">Race</th>
+      <th class="sortable">Class</th>
+      <th class="sortable favour-reverse">Level</th>
+      <th class="sortable">Rank</th>
+      <th class="sortable favour-reverse">Achievement points</th>
+      <th class="sortable">Last fetched</th> 
     </tr>
   </thead>
   <% for character in @guild.characters %>
@@ -19,6 +20,7 @@
       <td><%= h character.level %></td>
       <td><%= h character.rank %></td>
       <td><%= h character.achpoints %></td>
+      <td><%= h character.fetched_at.to_s %></td>
     </tr>
   <% end %>
 </ul>

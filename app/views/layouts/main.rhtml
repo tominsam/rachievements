@@ -10,10 +10,11 @@
   <script type="text/javascript" src="http://www.wowhead.com/widgets/power.js"></script>
 </head>
 <body>
+
 <%= yield %>
 
-
 <% if ENV["RAILS_ENV"] == 'production' %>
+
   <script type="text/javascript">
   var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
   document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
@@ -24,9 +25,6 @@
   pageTracker._trackPageview();
   } catch(err) {}</script>
 <% end %>
-
-<a href="http://heroku.com"><img src="/images/heroku-optimized.gif" style="float: right"></a>
-
 
 </body>
 </html>
