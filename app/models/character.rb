@@ -29,7 +29,7 @@ class Character < ActiveRecord::Base
             end
         rescue Exception => e
             puts "** Error fetching #{ self }: #{ e }"
-            return
+            return false
         end
         
         if rebuild # dangerous!
@@ -57,13 +57,14 @@ class Character < ActiveRecord::Base
                 # otherwise back-date it to the day we saw it on.
                 cach.created_at = Time.parse(achievement['datecompleted'][0,10] + "T23:59:59").to_time
                 if achievement['datecompleted'][0,10] == Time.now.iso8601[0,10]
-                    cach.created_at = Time.now
+                    cach.created_at = Time.now.utc
                 end
                 cach.save!
             end
         end
         self.fetched_at = Time.now.utc
         self.save!
+        return true
     end
     
 end
