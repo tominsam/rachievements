@@ -50,16 +50,10 @@ class Character < ActiveRecord::Base
             
             cach = self.character_achievements.find_by_achievement_id( ach.id )
             if cach.nil?
-                cach = self.character_achievements.new( :achievement_id => ach.id )
-                
-                # there's no time-level resolution on this stuff. So
-                # if it was completed today, assume it was completed at scan time,
-                # otherwise back-date it to the day we saw it on.
-                cach.created_at = Time.parse(achievement['datecompleted'][0,10] + "T23:59:59").to_time
-                if achievement['datecompleted'][0,10] == Time.now.iso8601[0,10]
-                    cach.created_at = Time.now.utc
-                end
-                cach.save!
+                # I'd like to do better on these timestamps. But the armoury is just
+                # _way_ too unreliable for that to work. Date-level is as good as it gets.
+                created_at = Time.parse(achievement['datecompleted'][0,10] + "T00:00:00").to_time
+                cach = self.character_achievements.create!( :achievement_id => ach.id, :created_at => created_at )
             end
         end
         self.fetched_at = Time.now.utc
