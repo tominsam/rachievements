@@ -1,10 +1,10 @@
 <div style="width: 90%; overflow: hidden">
-  <img src="<%= single_achievement.achievement.icon_url %>" width="51" height="51" style="float: left; padding-right: 5px">
+  <img src="<%= single_achievement.achievement.icon_url %>" width="51" height="51" style="float: left; padding: 3px">
   <div style="margin-left: 60px">
     <h3><%= link_to h(single_achievement.character.name), character_url( single_achievement.character ) %>
     gained the achievement
     '<%= link_to h(single_achievement.achievement.name), single_achievement.achievement.wowhead_url %>'</h3>
-    <p><span class="js-date"><%= single_achievement.created_at.strftime("%A %d %B %Y") %></span></p>
+    <!-- <p><span class="js-date"><%= single_achievement.created_at.strftime("%A %d %B %Y") %></span></p> -->
     <p><%= h single_achievement.achievement.description %></p>
   </div>
 </div>

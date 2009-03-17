@@ -1,3 +1,9 @@
-<% for cach in achievement_list %>
-  <%= render :partial => "shared/single_achievement", :object => cach %>
+<% for date, list in achievement_list.group_by{|a| a.created_at.to_date }.sort_by{|d,list| d }.reverse %>
+
+  <h2><%= date.strftime("%A %d %B %Y") %></h2>
+
+  <% for cach in list.sort_by{|a| a.id }.reverse %>
+    <%= render :partial => "shared/single_achievement", :object => cach %>
+  <% end %>
+
 <% end %>
