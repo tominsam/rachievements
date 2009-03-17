@@ -2,6 +2,11 @@ class GuildController < ApplicationController
     before_filter :realm_from_params
     before_filter :guild_from_params
     
+    def show
+        # get a numberof days of achievements, rather than a number-limited list.
+        @items = @guild.character_achievements.all( :conditions =>  [ 'character_achievements.created_at >= ?', Time.now - 5.days ], :order => "created_at desc" )
+    end
+
     def feed
         # TODO - there's probably a useful helper for this stuff.
         @title = "Achievements for #{ @guild.name }"
