@@ -1,9 +1,19 @@
-<% for date, list in achievement_list.group_by{|a| a.created_at.to_date }.sort_by{|d,list| d }.reverse %>
+<% if achievement_list.size == 0 %>
 
-  <h2><%= date.strftime("%A %d %B %Y") %></h2>
+  <h2>No achievements.</h2>
+  <p>Don't take this as a slur on your character. Maybe the armory has been playing up, it does that a <i>lot</i>, very annoying.</p>
+  <p>Alternatively, you might just have not done very much. IT CAN HAPPEN. I BLAME BORIS.</p>
+  
+<% else %>
 
-  <% for cach in list.sort_by{|a| a.id }.reverse %>
-    <%= render :partial => "shared/single_achievement", :object => cach %>
+  <% for date, list in achievement_list.group_by{|a| a.created_at.to_date }.sort_by{|d,list| d }.reverse %>
+
+    <h2><%= date.strftime("%A %d %B %Y") %></h2>
+
+    <% for cach in list.sort_by{|a| a.id }.reverse %>
+      <%= render :partial => "shared/single_achievement", :object => cach %>
+    <% end %>
+
   <% end %>
 
 <% end %>

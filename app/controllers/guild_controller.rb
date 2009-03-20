@@ -3,8 +3,8 @@ class GuildController < ApplicationController
     before_filter :guild_from_params
     
     def show
-        # get a numberof days of achievements, rather than a number-limited list.
-        @items = @guild.character_achievements.all( :conditions =>  [ 'character_achievements.created_at >= ?', Time.now - 5.days ], :order => "created_at desc" )
+        # get a number of days of achievements, rather than a number-limited list.
+        @items = @guild.character_achievements.all( :conditions =>  [ 'character_achievements.created_at >= ?', Time.now - 10.days ], :order => "created_at desc" )
     end
 
     def feed
@@ -17,7 +17,7 @@ class GuildController < ApplicationController
     
     def summary
         @items = @guild.character_achievements.all( :conditions => [ 'character_achievements.created_at >= ?', Date.today - 1.week ] )
-        @people = @items.group_by{|i| i.character }.sort_by{|character, items| character.name }
+        @people = @items.group_by{|i| i.character }.sort_by{|character, items| [ character.achpoints * -1, character.rank ] }
         @level_80 = @guild.characters.count(:conditions => { :level => 80 } )
         @total = @guild.characters.count
         @levels = @items.select{|i| i.achievement.name.match(/^Level \d+/) }.map{|i| [ i.character, i.achievement.name.downcase ] }.sort_by{|char, level| level }.reverse.uniq_by{|character, level| character }

@@ -4,7 +4,14 @@ class CharacterController < ApplicationController
 
     def show
         # get a numberof days of achievements, rather than a number-limited list.
-        @items = @character.character_achievements.all( :conditions =>  [ 'character_achievements.created_at >= ?', Time.now - 5.days ], :order => "created_at desc" )
+        time = Time.now
+        while @items.nil? or @items.size < 3
+            time -= 5.days
+            @items = @character.character_achievements.all( :conditions =>  [ 'character_achievements.created_at >= ?', time ], :order => "created_at desc" )
+            if time < Time.now - 1.month
+                break
+            end
+        end
     end
 
     def feed
