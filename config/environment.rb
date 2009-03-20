@@ -10,6 +10,8 @@ RAILS_GEM_VERSION = '2.3.2' unless defined? RAILS_GEM_VERSION
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 
+APPCONFIG = YAML.load_file("#{RAILS_ROOT}/config/appconfig.yml")[ RAILS_ENV ]
+
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
@@ -78,3 +80,15 @@ end
 
 # This is where I monkey patch built-in classes
 require "#{RAILS_ROOT}/lib/extend_builtins"
+
+ActionMailer::Base.default_url_options = { :host => APPCONFIG['hostname'] }
+ActionMailer::Base.raise_delivery_errors = true
+ActionMailer::Base.default_charset = "utf-8"
+ActionMailer::Base.smtp_settings = {
+  :address        => "smtp.mxes.net",
+  :port           => 587,
+  :domain         => "jerakeen.org",
+  :user_name      => "tom_jerakeen.org",
+  :password       => APPCONFIG['mail_password'],
+  :authentication => :plain
+}

@@ -13,23 +13,6 @@ config.action_controller.consider_all_requests_local = true
 config.action_view.debug_rjs                         = true
 config.action_controller.perform_caching             = false
 
-# Don't care if the mailer can't send
-config.action_mailer.raise_delivery_errors = false
 ActionMailer::Base.perform_deliveries = false
 
-if false
-    ActionMailer::Base.perform_deliveries = true
-    ActionMailer::Base.raise_delivery_errors = true
-    ActionMailer::Base.default_charset = "utf-8"
 
-    ActionMailer::Base.smtp_settings = {
-      :address        => "smtp.mxes.net",
-      :port           => 587,
-      :domain         => "jerakeen.org",
-      :user_name      => "tom_jerakeen.org",
-      :password       => "PASSWORD",
-      :authentication => :plain
-    }
-end
-
-config.action_mailer.default_url_options = { :host => "localhost:3000" }

@@ -5,6 +5,7 @@ class GuildMailer < ActionMailer::Base
     def GuildMailer.send_weekly_summaries
         Guild.find_each{|g|
             if !g.email.blank?
+                puts "#{ g.to_s }"
                 GuildMailer.deliver_weekly_summary( g )
             end
         }

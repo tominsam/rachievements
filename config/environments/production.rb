@@ -21,17 +21,4 @@ config.action_controller.perform_caching             = true
 # config.action_controller.asset_host                  = "http://assets.example.com"
 
 ActionMailer::Base.perform_deliveries = true
-ActionMailer::Base.raise_delivery_errors = true
-ActionMailer::Base.default_charset = "utf-8"
-
-ActionMailer::Base.smtp_settings = {
-  :address        => "smtp.mxes.net",
-  :port           => 587,
-  :domain         => "jerakeen.org",
-  :user_name      => "tom_jerakeen.org",
-  :password       => "PASSWORD",
-  :authentication => :plain
-}
-
-config.action_mailer.default_url_options = { :host => "achievements.heroku.com" }
   
