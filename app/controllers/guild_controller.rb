@@ -15,6 +15,15 @@ class GuildController < ApplicationController
         render :template => "shared/feed", :layout => false
     end
     
+    def summary
+        @items = @guild.character_achievements.all( :conditions => [ 'character_achievements.created_at >= ?', Date.today - 1.week ] )
+        @people = @items.group_by{|i| i.character }.sort_by{|character, items| character.name }
+        @level_80 = @guild.characters.count(:conditions => { :level => 80 } )
+        @total = @guild.characters.count
+        @levels = @items.select{|i| i.achievement.name.match(/^Level \d+/) }.map{|i| [ i.character, i.achievement.name.downcase ] }.sort_by{|char, level| level }.reverse.uniq_by{|character, level| character }
+        render :layout => false
+    end
+    
     protected
     def guild_from_params
         @guild = @realm.guilds.find_by_urltoken( params[:name], :include => [ :characters ] )
@@ -26,3 +35,4 @@ class GuildController < ApplicationController
     end
     
 end
+
