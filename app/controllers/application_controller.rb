@@ -22,20 +22,6 @@ class ApplicationController < ActionController::Base
         return false
     end
 
-    def user_url( user, extra = {} )
-        return url_for({ :controller => "user", :action => "index", :username => user.username }.merge(extra))
-    end
-
-    helper_method :guild_url
-    def guild_url( guild, extra = {} )
-        return url_for({ :controller => "guild", :action => "index", :region => guild.realm.region, :realm => guild.realm.urltoken, :name => guild.urltoken }.merge(extra))
-    end
-    
-    helper_method :character_url
-    def character_url( character, extra = {} )
-        return url_for({ :controller => "character", :action => "index", :region => character.realm.region, :realm => character.realm.urltoken, :name => character.urltoken }.merge(extra))
-    end
-
     def realm_from_params
         @realm = Realm.find_by_region_and_urltoken( params[:region], params[:realm] )
         if @realm.nil?

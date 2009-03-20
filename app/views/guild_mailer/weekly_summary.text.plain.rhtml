@@ -1,0 +1,22 @@
+Hello campers! It's been another exciting week in Guild-land for <%= @guild.name %>. We currently have <%= pluralize @level_80, "level 80" %>, and <%= pluralize @total, "members" %>.
+
+<% if @levels.size > 0 %>
+Exciting milestones:
+<% for character, level in @levels %>
+ * <%= character.name %> hit <%= level %>!<% end %>
+<% end %>
+
+In the last week..
+
+<% for character, items in @people %>
+<%= character.name %> (level <%= character.level %> <%= character.classname %>, <%= character.achpoints %> achievement points) gained the following achievements:
+<% for item in ( items.size > 6 ? items[0,5] : items ) %>
+ * <%= item.achievement.name %> (<%= item.achievement.description %>)<% end %>
+<% if items.size > 6 %>
+And a whole lot more stuff (<%= items.size %> things total)<% end %>
+<<%= character_url( character ) %>>
+
+<% end %>
+See everything that's going down on the guild page
+
+<<%= guild_url( @guild ) %>>
