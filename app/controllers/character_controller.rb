@@ -6,9 +6,9 @@ class CharacterController < ApplicationController
         # get a numberof days of achievements, rather than a number-limited list.
         time = Time.now
         while @items.nil? or @items.size < 3
-            time -= 5.days
+            time -= 10.days
             @items = @character.character_achievements.all( :conditions =>  [ 'character_achievements.created_at >= ?', time ], :order => "created_at desc" )
-            if time < Time.now - 1.month
+            if time < Time.now - 2.months
                 break
             end
         end
