@@ -52,6 +52,7 @@ class Character < ActiveRecord::Base
             if cach.nil?
                 # I'd like to do better on these timestamps. But the armoury is just
                 # _way_ too unreliable for that to work. Date-level is as good as it gets.
+                p achievement
                 created_at = Time.parse(achievement['datecompleted'][0,10] + "T00:00:00+00:00").to_time
                 cach = self.character_achievements.create!( :achievement_id => ach.id, :created_at => created_at )
             end
