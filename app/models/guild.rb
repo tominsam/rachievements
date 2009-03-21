@@ -43,6 +43,7 @@ class Guild < ActiveRecord::Base
                 char[(p == :class) ? :classname : p] = character[p.to_s]
             end
             char.guild = self
+            char.achpoints ||= 0
             char.save!
         end
         self.fetched_at = Time.now.utc
