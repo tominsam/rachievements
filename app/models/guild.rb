@@ -39,11 +39,11 @@ class Guild < ActiveRecord::Base
         (xml/"character").each do |character|
             char = self.realm.characters.find_by_name( character['name'] ) || self.realm.characters.new( :name => character[:name] )
 
-            [ :race, :class, :gender, :level, :rank, :achpoints ].each do |p|
+            [ :race, :class, :gender, :level, :rank ].each do |p|
                 char[(p == :class) ? :classname : p] = character[p.to_s]
             end
+            char.achpoints = character['achPoints']
             char.guild = self
-            char.achpoints ||= 0
             char.save!
         end
         self.fetched_at = Time.now.utc
