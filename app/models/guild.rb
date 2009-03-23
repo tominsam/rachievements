@@ -42,7 +42,7 @@ class Guild < ActiveRecord::Base
             [ :race, :class, :gender, :level, :rank ].each do |p|
                 char[(p == :class) ? :classname : p] = character[p.to_s]
             end
-            char.achpoints = character['achPoints']
+            char.achpoints = character['achPoints'] || character['achpoints'] # GAHRAHGAH
             char.guild = self
             char.save!
         end

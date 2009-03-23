@@ -48,11 +48,14 @@ class Character < ActiveRecord::Base
             # TODO - only if changed!
             ach.save!
             
+            p achievement
+
             cach = self.character_achievements.find_by_achievement_id( ach.id )
             if cach.nil?
                 # I'd like to do better on these timestamps. But the armoury is just
                 # _way_ too unreliable for that to work. Date-level is as good as it gets.
-                created_at = Time.parse(achievement['dateCompleted'][0,10] + "T00:00:00+00:00").to_time
+                date_completed = achievement['datecompleted'] || achievement['dateCompleted'] # stupid armoury piece of shit
+                created_at = Time.parse(date_completed[0,10] + "T00:00:00+00:00").to_time
                 cach = self.character_achievements.create!( :achievement_id => ach.id, :created_at => created_at )
             end
         end
