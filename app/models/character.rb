@@ -46,8 +46,6 @@ class Character < ActiveRecord::Base
                 ach.save!
             end
 
-            p achievement
-
             cach = self.character_achievements.find_by_achievement_id( ach.id )
             if cach.nil?
                 # I'd like to do better on these timestamps. But the armoury is just
