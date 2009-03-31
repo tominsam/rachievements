@@ -40,14 +40,12 @@ class Character < ActiveRecord::Base
             ach = Achievement.find_by_armory_id( achievement['id'] )
             if ach.nil?
                 ach = Achievement.new( :armory_id => achievement['id'] )
+                ach.name = achievement['title']
+                ach.description = achievement['desc']
+                ach.icon_filename = achievement['icon']
+                ach.save!
             end
 
-            ach.name = achievement['title']
-            ach.description = achievement['desc']
-            ach.icon_filename = achievement['icon']
-            # TODO - only if changed!
-            ach.save!
-            
             p achievement
 
             cach = self.character_achievements.find_by_achievement_id( ach.id )
