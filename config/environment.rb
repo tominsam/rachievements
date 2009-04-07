@@ -84,11 +84,13 @@ require "#{RAILS_ROOT}/lib/extend_builtins"
 ActionMailer::Base.default_url_options = { :host => APPCONFIG['hostname'] }
 ActionMailer::Base.raise_delivery_errors = true
 ActionMailer::Base.default_charset = "utf-8"
+
+# heroku config:add EMAIL_SERVER=smtp.mxes.net EMAIL_PORT=587 EMAIL_DOMAIN=jerakeen.org EMAIL_USERNAME=tom_jerakeen.org EMAIL_PASSWORD=xxxx
 ActionMailer::Base.smtp_settings = {
-  :address        => "smtp.mxes.net",
-  :port           => 587,
-  :domain         => "jerakeen.org",
-  :user_name      => "tom_jerakeen.org",
-  :password       => APPCONFIG['mail_password'],
+  :address        => ENV["EMAIL_SERVER"],
+  :port           => ENV["EMAIL_PORT"],
+  :domain         => ENV["EMAIL_DOMAIN"],
+  :user_name      => ENV["EMAIL_USERNAME"],
+  :password       => ENV["EMAIL_PASSWORD"],
   :authentication => :plain
 }
