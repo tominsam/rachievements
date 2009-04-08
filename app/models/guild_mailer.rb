@@ -3,6 +3,7 @@ class GuildMailer < ActionMailer::Base
     helper :application
     
     def GuildMailer.send_weekly_summaries
+        # TODO - only guilds not delivered to recently.
         Guild.find_each{|g|
             if !g.email.blank?
                 puts "#{ g.to_s }"
@@ -12,6 +13,9 @@ class GuildMailer < ActionMailer::Base
     end
 
     def weekly_summary( guild )
+        if guild.email_sent_at and guild.email_sent_at > Time.now - 1.week
+            puts "email sent recently, not resending."
+        end
         if guild.email.blank?
             raise "no email address for guild #{ guild }"
         end
@@ -28,6 +32,7 @@ class GuildMailer < ActionMailer::Base
 
         body( { :guild => guild, :people => people, :level_80 => level_80, :total => total, :levels => levels } )
         
+        guild.update_attributes!( :email_sent_at => Time.now )
     end
 
 end

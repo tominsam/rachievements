@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090320113613) do
+ActiveRecord::Schema.define(:version => 20090408081112) do
 
   create_table "achievements", :force => true do |t|
     t.string   "name",                        :null => false
@@ -44,13 +44,14 @@ ActiveRecord::Schema.define(:version => 20090320113613) do
   end
 
   create_table "guilds", :force => true do |t|
-    t.string   "name",       :limit => 64
-    t.string   "urltoken",   :limit => 64,  :null => false
-    t.integer  "realm_id",                  :null => false
+    t.string   "name",          :limit => 64
+    t.string   "urltoken",      :limit => 64,  :null => false
+    t.integer  "realm_id",                     :null => false
     t.datetime "fetched_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "email",      :limit => 100
+    t.string   "email",         :limit => 100
+    t.datetime "email_sent_at"
   end
 
   create_table "realms", :force => true do |t|
