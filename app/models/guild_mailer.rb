@@ -3,8 +3,9 @@ class GuildMailer < ActionMailer::Base
     helper :application
     
     def GuildMailer.send_weekly_summaries
-        # TODO - only guilds not delivered to recently.
-        Guild.find_each{|g|
+        # call this method on mondays. It can cope with being called more than
+        # once on a monday, but don't call it all the time.
+        Guild.find(:all, :conditions => [ "email_sent_at < ?", Time.now - 2.days ] ).each{|g|
             if !g.email.blank?
                 puts "#{ g.to_s }"
                 GuildMailer.deliver_weekly_summary( g )
@@ -13,7 +14,7 @@ class GuildMailer < ActionMailer::Base
     end
 
     def weekly_summary( guild )
-        if guild.email_sent_at and guild.email_sent_at > Time.now - 1.week
+        if guild.email_sent_at and guild.email_sent_at > Time.now - 2.days
             puts "email sent recently, not resending."
         end
         if guild.email.blank?
