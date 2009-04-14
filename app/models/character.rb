@@ -2,7 +2,7 @@ class Character < ActiveRecord::Base
     belongs_to :realm
     belongs_to :guild
 
-    has_many :character_achievements, :order => "created_at desc", :include => [ :achievement ]
+    has_many :character_achievements, :order => "character_achievements.created_at desc, character_achievements.id", :include => [ :achievement ]
 
     validates_uniqueness_of :name, :scope => :realm_id
     
@@ -57,7 +57,20 @@ class Character < ActiveRecord::Base
         end
         self.fetched_at = Time.now.utc
         self.save!
+        
+        # sometimes I get race conditions. This annoys me.
+        self.clean_bad_data
+        
         return true
+    end
+    
+    # don't know how this happens.
+    def clean_bad_data
+        self.character_achievements.group_by{|ca| ca.achievement.armory_id }.each{|aid, cas|
+            if cas.size > 1
+                cas[1,1000].each{|c| c.destroy }
+            end
+        }
     end
     
 end
