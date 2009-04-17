@@ -37,11 +37,37 @@ class Guild < ActiveRecord::Base
         end
 
         (xml/"character").each do |character|
+            p character
             char = self.realm.characters.find_by_name( character['name'] ) || self.realm.characters.new( :name => character[:name] )
 
-            [ :race, :class, :gender, :level, :rank ].each do |p|
-                char[(p == :class) ? :classname : p] = character[p.to_s]
+            [ :level, :rank ].each do |p|
+                char[p] = character[p.to_s]
             end
+            
+            # TODO - Alliance races. Meh.
+            char.race = {
+                "2" => "Orc",
+                "5" => "Undead",
+                "6" => "Tauren",
+                "8" => "Troll",
+                "10" => "Blood Elf",
+            }[ character['raceid'] ] || 'Race'
+
+            char.classname = {
+                "1" => "Warrior",
+                "2" => "Paladin",
+                "3" => "Hunter",
+                "4" => "Rogue",
+                "5" => "Priest",
+                "6" => "Death Knight",
+                "7" => "Shaman",
+                "8" => "Mage",
+                "9" => "Warlock",
+                "11" => "Druid",
+            }[ character['classid'] ] || "Class"
+
+            char.gender = character['genderid'] == '0' ? "male" : "female"
+            
             char.achpoints = character['achPoints'] || character['achpoints'] # GAHRAHGAH
             char.guild = self
             char.save!
