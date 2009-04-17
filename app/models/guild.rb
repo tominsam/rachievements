@@ -46,25 +46,25 @@ class Guild < ActiveRecord::Base
             
             # TODO - Alliance races. Meh.
             char.race = {
-                "2" => "Orc",
-                "5" => "Undead",
-                "6" => "Tauren",
-                "8" => "Troll",
-                "10" => "Blood Elf",
-            }[ character['raceid'] ] || 'Race'
+                2 => "Orc",
+                5 => "Undead",
+                6 => "Tauren",
+                8 => "Troll",
+                10 => "Blood Elf",
+            }[ character['raceid'].to_i ] || 'Race'
 
             char.classname = {
-                "1" => "Warrior",
-                "2" => "Paladin",
-                "3" => "Hunter",
-                "4" => "Rogue",
-                "5" => "Priest",
-                "6" => "Death Knight",
-                "7" => "Shaman",
-                "8" => "Mage",
-                "9" => "Warlock",
-                "11" => "Druid",
-            }[ character['classid'] ] || "Class"
+                1 => "Warrior",
+                2 => "Paladin",
+                3 => "Hunter",
+                4 => "Rogue",
+                5 => "Priest",
+                6 => "Death Knight",
+                7 => "Shaman",
+                8 => "Mage",
+                9 => "Warlock",
+                11 => "Druid",
+            }[ character['classid'].to_i ] || "Class"
 
             char.gender = character['genderid'] == '0' ? "male" : "female"
             
