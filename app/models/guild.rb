@@ -23,8 +23,6 @@ class Guild < ActiveRecord::Base
     
     def refresh_from_armory
         puts "-- refreshing #{self}"
-        require 'hpricot'
-        require 'open-uri'
 
         # I like hpricot, ok?
         begin
@@ -36,11 +34,11 @@ class Guild < ActiveRecord::Base
             return
         end
         
-        p xml
+        puts xml.inspect
         
 
         (xml/"character").each do |character|
-            p character
+            puts character.inspect
             char = self.realm.characters.find_by_name( character['name'] ) || self.realm.characters.new( :name => character[:name] )
 
             [ :level, :rank ].each do |p|

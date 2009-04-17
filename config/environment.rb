@@ -94,3 +94,6 @@ ActionMailer::Base.smtp_settings = {
   :password       => ENV["EMAIL_PASSWORD"],
   :authentication => :plain
 }
+
+require 'hpricot'
+require 'open-uri'
