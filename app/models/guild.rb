@@ -35,6 +35,9 @@ class Guild < ActiveRecord::Base
             puts "** Error fetching: #{ e }"
             return
         end
+        
+        p xml
+        
 
         (xml/"character").each do |character|
             p character
