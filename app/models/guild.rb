@@ -6,7 +6,7 @@ class Guild < ActiveRecord::Base
     validates_uniqueness_of :name, :scope => :realm_id
     
     def to_s
-        "#<Guild #{self.name} / #{self.realm.name} / #{self.realm.region.upcase}>"
+        "#<Guild #{self.name} / #{self.realm.name} (#{self.realm.region.upcase})>"
     end
     
     def to_param
