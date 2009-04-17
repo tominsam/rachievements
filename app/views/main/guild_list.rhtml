@@ -1,0 +1,12 @@
+<h1>rachievements</h1>
+<p>A World of Wargraft guild achievement tracker.</p>
+<p>Based on <a href="http://jerakeen.org/code/rachievements/">an open-source codebase</a> and hosted on <a href="http://heroku.com">heroku</a>.</p>
+
+<% for realm, guilds in @guilds.group_by(&:realm) %>
+  <h2><%= realm.name %> (<%= realm.region.upcase %>)</h2>
+  <ul>
+    <% for guild in guilds %>
+      <li><%= link_to guild.name, guild_url( guild ) %></li>
+    <% end %>
+  </ul>
+<% end %>

@@ -1,5 +1,6 @@
 class MainController < ApplicationController
-    def index
-        render_404
+    def guild_list
+        @guilds = Guild.find(:all, :order => "name", :include => :realm ) # TODO, paginate or somehting
     end
+    
 end
