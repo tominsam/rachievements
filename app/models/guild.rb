@@ -34,11 +34,7 @@ class Guild < ActiveRecord::Base
             return
         end
         
-        puts xml.inspect
-        
-
         (xml/"character").each do |character|
-            puts character.inspect
             char = self.realm.characters.find_by_name( character['name'] ) || self.realm.characters.new( :name => character[:name] )
 
             [ :level, :rank ].each do |p|
