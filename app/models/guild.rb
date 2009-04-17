@@ -27,7 +27,7 @@ class Guild < ActiveRecord::Base
         # I like hpricot, ok?
         begin
             xml = open(self.armory_url, "User-agent" => 'Mozilla/5.0 (Windows; U; Windows NT 5.0; en-GB; rv:1.8.1.4) Gecko/20070515 Firefox/2.0.0.4') do |f|
-                Hpricot(f)
+                Hpricot.XML(f)
             end
         rescue Exception => e
             puts "** Error fetching: #{ e }"
@@ -52,7 +52,7 @@ class Guild < ActiveRecord::Base
                 6 => "Tauren",
                 8 => "Troll",
                 10 => "Blood Elf",
-            }[ character['raceid'].to_i ] || 'Race'
+            }[ character['raceId'].to_i ] || 'Race'
 
             char.classname = {
                 1 => "Warrior",
@@ -65,11 +65,11 @@ class Guild < ActiveRecord::Base
                 8 => "Mage",
                 9 => "Warlock",
                 11 => "Druid",
-            }[ character['classid'].to_i ] || "Class"
+            }[ character['classId'].to_i ] || "Class"
 
-            char.gender = character['genderid'] == '0' ? "male" : "female"
+            char.gender = character['genderId'] == '0' ? "male" : "female"
             
-            char.achpoints = character['achPoints'] || character['achpoints'] # GAHRAHGAH
+            char.achpoints = character['achPoints']
             char.guild = self
             char.save!
         end

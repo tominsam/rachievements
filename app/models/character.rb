@@ -23,7 +23,7 @@ class Character < ActiveRecord::Base
 
         begin
             xml = open(self.armory_url, "User-agent" => 'Mozilla/5.0 (Windows; U; Windows NT 5.0; en-GB; rv:1.8.1.4) Gecko/20070515 Firefox/2.0.0.4') do |f|
-                Hpricot(f)
+                Hpricot.XML(f)
             end
         rescue Exception => e
             puts "** Error fetching #{ self }: #{ e }"
@@ -48,7 +48,7 @@ class Character < ActiveRecord::Base
             if cach.nil?
                 # I'd like to do better on these timestamps. But the armoury is just
                 # _way_ too unreliable for that to work. Date-level is as good as it gets.
-                date_completed = achievement['datecompleted'] || achievement['dateCompleted'] # stupid armoury piece of shit
+                date_completed = achievement['dateCompleted']
                 created_at = Time.parse(date_completed[0,10] + "T00:00:00+00:00").to_time
                 cach = self.character_achievements.create!( :achievement_id => ach.id, :created_at => created_at )
             end
