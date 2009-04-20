@@ -15,14 +15,14 @@ class GuildMailer < ActionMailer::Base
 
     def weekly_summary( guild )
         if guild.email_sent_at and guild.email_sent_at > Time.now - 2.days
-            puts "email sent recently, not resending."
+            raise "email sent recently, not resending."
         end
         if guild.email.blank?
             raise "no email address for guild #{ guild }"
         end
         recipients guild.email
         from "Tom's Magical Mail Sending Robot <tom@jerakeen.org>"
-        subject "This week in the magical world of #{ guild.name }"
+        subject "The magical world of #{ guild.name }, week beginning #{ (Time.now - 7.days).strftime("%d/%M") }"
         sent_on Time.now
 
         all_items = guild.character_achievements.all( :conditions => [ 'character_achievements.created_at >= ?', Date.today - 1.week ] )
