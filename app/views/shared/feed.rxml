@@ -1,6 +1,6 @@
 xml.instruct! :xml, :version=>"1.0", :encoding=>"UTF-8"
 
-xml.feed "xml:lang" => "en-US", "xmlns" => 'http://www.w3.org/2005/Atom', "xml:base" => url_for( :controller => "main", :action => "index", :only_path => false ) do
+xml.feed "xml:lang" => "en-US", "xmlns" => 'http://www.w3.org/2005/Atom', "xml:base" => "http://achievements.movieos.org/" do
 
     xml.title @title, :type => 'text'
 
