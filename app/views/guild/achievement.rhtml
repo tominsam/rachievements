@@ -3,5 +3,6 @@
 <p>Members of <%= @guild.name %> that have achieved:</p>
 <h1><%= @achievement.name %></h1>
 <p><%= @achievement.description %></p>
+<p><%= link_to @achievement.wowhead_url, @achievement.wowhead_url %></p>
 
 <%= render :partial => "shared/achievement_list", :object => @items %>
