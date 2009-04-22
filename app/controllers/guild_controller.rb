@@ -4,14 +4,14 @@ class GuildController < ApplicationController
     
     def show
         # get a number of days of achievements, rather than a number-limited list.
-        @items = @guild.character_achievements.all( :conditions =>  [ 'character_achievements.created_at >= ?', Time.now - 10.days ], :order => "created_at desc" )
+        @items = @guild.character_achievements.all( :conditions =>  [ 'character_achievements.created_at >= ?', Time.now - 10.days ], :order => "character_achievements.created_at desc" )
     end
 
     def feed
         # TODO - there's probably a useful helper for this stuff.
         @title = "Achievements for #{ @guild.name }"
         @guid = "tag:achievements.heroku.com,2009-03-06:/#{ @realm.region }/#{ @realm.urltoken }/guild/#{ @guild.urltoken }"
-        @items = @guild.character_achievements.all( :limit => 20, :order => "created_at desc" )
+        @items = @guild.character_achievements.all( :limit => 20, :order => "character_achievements.created_at desc" )
         render :template => "shared/feed", :layout => false
     end
     
