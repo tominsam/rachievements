@@ -24,6 +24,14 @@ class GuildController < ApplicationController
         render :layout => false
     end
     
+    def achievement
+        @achievement = Achievement.find_by_armory_id( params[:id] )
+        if @achievement.nil?
+            return render_404
+        end
+        @items = @guild.character_achievements.all( :limit => 20, :conditions => { :achievement_id => @achievement.id }, :order => "character_achievements.created_at desc" )
+    end
+    
     protected
     def guild_from_params
         @guild = @realm.guilds.find_by_urltoken( params[:name], :include => [ :characters ] )

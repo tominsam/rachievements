@@ -3,7 +3,7 @@
   <div style="margin-left: 60px">
     <h3><%= link_to h(single_achievement.character.name), character_url( single_achievement.character ) %>
     gained the achievement
-    '<%= link_to h(single_achievement.achievement.name), single_achievement.achievement.wowhead_url %>'</h3>
+    '<%= link_to h(single_achievement.achievement.name), achievement_url( single_achievement.achievement, single_achievement.character.guild ) %>'</h3>
     <!-- <p><span class="js-date"><%= single_achievement.created_at.strftime("%A %d %B %Y") %></span></p> -->
     <p><%= h single_achievement.achievement.description %></p>
   </div>

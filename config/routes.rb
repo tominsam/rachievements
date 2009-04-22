@@ -6,6 +6,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect "/", :controller => "main", :action => "guild_list"
 
   map.connect '/:region/:realm/:controller/:name/', :action => "show"
+  map.connect '/:region/:realm/:controller/:name/achievement/:id', :action => "achievement"
   map.connect '/:region/:realm/:controller/:name/:action'
 
   # map.resources :realms do |realm|
