@@ -21,7 +21,7 @@ class GuildController < ApplicationController
         @level_80 = @guild.characters.count(:conditions => { :level => 80 } )
         @total = @guild.characters.count
         @levels = @items.select{|i| i.achievement.name.match(/^Level \d+/) }.map{|i| [ i.character, i.achievement.name.downcase ] }.sort_by{|char, level| level }.reverse.uniq_by{|character, level| character }
-        render :layout => false
+        render :layout => false, :template => "guild_mailer/weekly_summary.text.html.rhtml", :content_type => "text/html"
     end
     
     def achievement
@@ -29,7 +29,8 @@ class GuildController < ApplicationController
         if @achievement.nil?
             return render_404
         end
-        @items = @guild.character_achievements.all( :limit => 20, :conditions => { :achievement_id => @achievement.id }, :order => "character_achievements.created_at desc" )
+        # no limit on this one, let's see everything. There will be at most #guild members rows
+        @items = @guild.character_achievements.all( :conditions => { :achievement_id => @achievement.id }, :order => "character_achievements.created_at desc" )
     end
     
     protected

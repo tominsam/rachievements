@@ -19,7 +19,7 @@ xml.feed "xml:lang" => "en-US", "xmlns" => 'http://www.w3.org/2005/Atom', "xml:b
             xml.updated item.updated_at.xmlschema
             xml.id "#{@guid}/#{item.id}"
             xml.title "#{ item.character.name } achieved #{ item.achievement.name }"
-            xml.link "rel" => "alternate", "href" => item.achievement.wowhead_url
+            xml.link "rel" => "alternate", "href" => achievement_url(item.achievement)
             xml.content render( :partial => "shared/single_achievement", :object => item ), :type => "html"
         end
     end
