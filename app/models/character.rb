@@ -51,7 +51,10 @@ class Character < ActiveRecord::Base
         return true
     end
     
+
     def backfill( xml = nil )
+        # _everyone_ hit level 10.
+        # Character.all.select{|c| c.character_achievements.size > 0 and !Achievement.find_by_armory_id(6).character_achievements.map(&:character_id).include?(c.id) }[0,3].each(&:backfill)
         puts "-- backfilling #{self}"
 
         if xml.nil?

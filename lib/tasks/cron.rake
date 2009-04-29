@@ -22,7 +22,13 @@ task :cron => :environment do
         $stdout.flush
     }
     puts "** character fetch complete - fetched #{ count } of #{ total } successfully"
-    $stdout.flush
+
+    # everyone without the 'level 10' achievement needs backfilling. not totally
+    # reliable, this, but there's little I can do. Can't do all of them, that
+    # would upset heroku, but we can do them sloooowly.
+    level_10s = Achievement.find_by_armory_id(6).character_achievements.map(&:character_id)
+    Character.all.select{|c| c.character_achievements.size > 0 and !level_10s.include?(c.id) }[0].backfill
+
 end
 
 
