@@ -3,6 +3,11 @@ class CharacterController < ApplicationController
     before_filter :character_from_params
 
     def show
+        if params[:all]
+            @items = @character.character_achievements.all( :order => "character_achievements.created_at desc" )
+            return
+        end
+
         # get a numberof days of achievements, rather than a number-limited list.
         time = Time.now
         while @items.nil? or @items.size < 3
