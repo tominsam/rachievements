@@ -30,10 +30,6 @@ class Character < ActiveRecord::Base
             return false
         end
         
-        if rebuild # dangerous!
-            self.character_achievements.destroy_all
-        end
-
         (xml/"achievement").each do |achievement|
             self.add_achievement_from_xml( achievement )
         end

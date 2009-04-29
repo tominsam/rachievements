@@ -27,7 +27,10 @@ task :cron => :environment do
     # reliable, this, but there's little I can do. Can't do all of them, that
     # would upset heroku, but we can do them sloooowly.
     level_10s = Achievement.find_by_armory_id(6).character_achievements.map(&:character_id)
-    Character.all.select{|c| c.character_achievements.size > 0 and !level_10s.include?(c.id) }[0].backfill
+    needs_backfill = Character.all.select{|c| c.character_achievements.size > 0 and !level_10s.include?(c.id) }[0]
+    if needs_backfill
+        needs_backfill.backfill
+    end
 
 end
 
