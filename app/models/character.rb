@@ -26,7 +26,7 @@ class Character < ActiveRecord::Base
                 Hpricot.XML(f)
             end
         rescue Exception => e
-            puts "** Error fetching #{ self }: #{ e }"
+            STDERR.puts "** Error fetching #{ self }: #{ e }"
             return false
         end
         
@@ -59,7 +59,7 @@ class Character < ActiveRecord::Base
                     Hpricot.XML(f)
                 end
             rescue Exception => e
-                puts "** Error fetching #{ self }: #{ e }"
+                STDERR.puts "** Error fetching #{ self }: #{ e }"
                 return false
             end
         end
@@ -72,7 +72,7 @@ class Character < ActiveRecord::Base
                     Hpricot.XML(f)
                 end
             rescue Exception => e
-                puts "** Error fetching #{ self } category #{ category["name"] }: #{ e }"
+                STDERR.puts "** Error fetching #{ self } category #{ category["name"] }: #{ e }"
                 return false
             end
             category_xml.search("//achievement").each do |achievement|

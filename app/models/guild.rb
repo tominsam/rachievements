@@ -30,7 +30,7 @@ class Guild < ActiveRecord::Base
                 Hpricot.XML(f)
             end
         rescue Exception => e
-            puts "** Error fetching: #{ e }"
+            STDERR.puts "** Error fetching: #{ e }"
             return
         end
         
