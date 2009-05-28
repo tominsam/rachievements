@@ -85,15 +85,5 @@ ActionMailer::Base.default_url_options = { :host => ENV['APP_HOST'].blank? ? "lo
 ActionMailer::Base.raise_delivery_errors = true
 ActionMailer::Base.default_charset = "utf-8"
 
-# heroku config:add APP_HOST=achievements.heroku.com EMAIL_SERVER=smtp.mxes.net EMAIL_PORT=587 EMAIL_DOMAIN=jerakeen.org EMAIL_USERNAME=tom_jerakeen.org EMAIL_PASSWORD=xxxx
-ActionMailer::Base.smtp_settings = {
-  :address        => ENV["EMAIL_SERVER"],
-  :port           => ENV["EMAIL_PORT"],
-  :domain         => ENV["EMAIL_DOMAIN"],
-  :user_name      => ENV["EMAIL_USERNAME"],
-  :password       => ENV["EMAIL_PASSWORD"],
-  :authentication => :plain
-}
-
 require 'hpricot'
 require 'open-uri'
