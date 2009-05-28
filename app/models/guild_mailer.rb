@@ -13,10 +13,10 @@ class GuildMailer < ActionMailer::Base
         }
     end
 
-    def weekly_summary( guild, email = nil )
+    def weekly_summary( guild, email = nil, force = false )
         email ||= guild.email
         
-        if guild.email_sent_at and guild.email_sent_at > Time.now - 2.days
+        if !force and guild.email_sent_at and guild.email_sent_at > Time.now - 2.days
             raise "email sent recently, not resending."
         end
         if email.blank?
