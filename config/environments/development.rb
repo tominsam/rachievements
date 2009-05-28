@@ -15,4 +15,5 @@ config.action_controller.perform_caching             = false
 
 ActionMailer::Base.perform_deliveries = false
 
+ActionMailer::Base.default_url_options = { :host => "localhost:3000" }
 

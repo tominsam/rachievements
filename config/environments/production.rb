@@ -22,3 +22,4 @@ config.action_controller.perform_caching             = true
 
 ActionMailer::Base.perform_deliveries = true
   
+ActionMailer::Base.default_url_options = { :host => "achievements.movieos.org" }
