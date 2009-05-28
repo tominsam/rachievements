@@ -84,6 +84,7 @@ require "#{RAILS_ROOT}/lib/extend_builtins"
 ActionMailer::Base.default_url_options = { :host => ENV['APP_HOST'].blank? ? "localhost:3000" : ENV['APP_HOST'] }
 ActionMailer::Base.raise_delivery_errors = true
 ActionMailer::Base.default_charset = "utf-8"
+ActionMailer::Base.delivery_method = :sendmail
 
 require 'hpricot'
 require 'open-uri'
