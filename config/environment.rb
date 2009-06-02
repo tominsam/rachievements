@@ -85,5 +85,7 @@ ActionMailer::Base.raise_delivery_errors = true
 ActionMailer::Base.default_charset = "utf-8"
 ActionMailer::Base.delivery_method = :sendmail
 
+ExceptionNotifier.exception_recipients = %w(tom@jerakeen.org)
+
 require 'hpricot'
 require 'open-uri'

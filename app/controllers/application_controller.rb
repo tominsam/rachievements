@@ -3,6 +3,7 @@
 
 class ApplicationController < ActionController::Base
     helper :all # include all helpers, all the time
+    include ExceptionNotifiable
 
     layout "main"
 
