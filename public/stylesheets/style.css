@@ -78,3 +78,5 @@ table td, table th {
 .evenrow {
     background: #ddd;
 }
+
+.goodbox { overflow: hidden; width: 100%; }
