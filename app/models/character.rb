@@ -22,9 +22,7 @@ class Character < ActiveRecord::Base
         puts "-- refreshing #{self}"
 
         begin
-            xml = open(self.armory_url, "User-agent" => 'Mozilla/5.0 (Windows; U; Windows NT 5.0; en-GB; rv:1.8.1.4) Gecko/20070515 Firefox/2.0.0.4') do |f|
-                Hpricot.XML(f)
-            end
+            xml = Fetcher.fetch(self.armory_url)
         rescue Exception => e
             STDERR.puts "** Error fetching #{ self }: #{ e }"
             return false
@@ -55,9 +53,7 @@ class Character < ActiveRecord::Base
 
         if xml.nil?
             begin
-                xml = open(self.armory_url, "User-agent" => 'Mozilla/5.0 (Windows; U; Windows NT 5.0; en-GB; rv:1.8.1.4) Gecko/20070515 Firefox/2.0.0.4') do |f|
-                    Hpricot.XML(f)
-                end
+                xml = Fetcher.fetch(self.armory_url)
             rescue Exception => e
                 STDERR.puts "** Error fetching #{ self }: #{ e }"
                 return false
@@ -68,9 +64,7 @@ class Character < ActiveRecord::Base
         for category in categories
             puts "fetching category #{ category['id'] }: #{ category["name"] }"
             begin
-                category_xml = open(self.armory_url + "&c=#{ category["id"] }", "User-agent" => 'Mozilla/5.0 (Windows; U; Windows NT 5.0; en-GB; rv:1.8.1.4) Gecko/20070515 Firefox/2.0.0.4') do |f|
-                    Hpricot.XML(f)
-                end
+                category_xml = Fetcher.fetch(self.armory_url + "&c=#{ category["id"] }")
             rescue Exception => e
                 STDERR.puts "** Error fetching #{ self } category #{ category["name"] }: #{ e }"
                 return false

@@ -87,5 +87,8 @@ ActionMailer::Base.delivery_method = :sendmail
 
 ExceptionNotifier.exception_recipients = %w(tom@jerakeen.org)
 
+
+ARMORY_LANGUAGE = 'en'
+
 require 'hpricot'
 require 'open-uri'
