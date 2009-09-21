@@ -106,7 +106,7 @@ class Character < ActiveRecord::Base
     
     # don't know how this happens.
     def clean_bad_data
-        self.character_achievements.group_by{|ca| ca.achievement.armory_id }.each{|aid, cas|
+        self.character_achievements.select{|ca| ca.achievement }.group_by{|ca| ca.achievement.armory_id }.each{|aid, cas|
             if cas.size > 1
                 cas[1,1000].each{|c| c.destroy }
             end
