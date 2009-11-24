@@ -25,3 +25,11 @@ namespace :deploy do
     run "touch #{current_release}/tmp/restart.txt"
   end
 end
+
+namespace :custom do
+  task :config, :roles => :app do
+    run "ln -s #{deploy_to}/shared/database.yml #{current_release}/config"
+  end
+end
+
+after "deploy:update_code", "custom:config"
