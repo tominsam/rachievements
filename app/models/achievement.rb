@@ -12,4 +12,19 @@ class Achievement < ActiveRecord::Base
     end
 
 
+    def self.from_xml( achievement )
+
+        ach = self.find_by_armory_id( achievement['id'] )
+        if ach.nil?
+            ach = Achievement.new( :armory_id => achievement['id'] )
+            ach.name = achievement['title']
+            ach.description = achievement['desc']
+            ach.icon_filename = achievement['icon']
+            ach.save!
+        end
+        
+        return ach
+    end
+
+
 end

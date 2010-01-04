@@ -28,12 +28,25 @@ class Character < ActiveRecord::Base
             return false
         end
         
-        (xml/"achievement").each do |achievement|
-            self.add_achievement_from_xml( achievement )
-        end
-        
-        if do_backfill
-            self.backfill(data)
+        achievements = (xml/"achievement").map{|a| Achievement.from_xml(a) }
+        need_to_add = achievements.select{|a| !self.has_achievement?(a) }
+
+        if need_to_add.size >= 5
+            puts "   5 achievements - need to backfill"
+            if !self.backfill(xml)
+                return false
+            end
+
+        elsif need_to_add.size > 0
+            puts "   adding #{ need_to_add.size } achievements"
+            (xml/"achievement").each do |achievement|
+                if !self.add_achievement_from_xml( achievement )
+                    return false
+                end
+            end
+
+        else
+            puts "   nothing to do"
         end
 
         self.fetched_at = Time.now.utc
@@ -62,7 +75,7 @@ class Character < ActiveRecord::Base
         
         categories = xml.search("rootCategories/category")
         for category in categories
-            puts "fetching category #{ category['id'] }: #{ category["name"] }"
+            puts "   fetching category #{ category['id'] }: #{ category["name"] }"
             begin
                 category_xml = Fetcher.fetch(self.armory_url + "&c=#{ category["id"] }")
             rescue Exception => e
@@ -72,7 +85,9 @@ class Character < ActiveRecord::Base
             category_xml.search("//achievement").each do |achievement|
                 # add completed achievements
                 if achievement['dateCompleted']
-                    self.add_achievement_from_xml( achievement )
+                    if !self.add_achievement_from_xml( achievement )
+                        return false
+                    end
                 end
             end
         end
@@ -85,16 +100,10 @@ class Character < ActiveRecord::Base
     
     def add_achievement_from_xml( achievement )
 
-        ach = Achievement.find_by_armory_id( achievement['id'] )
-        if ach.nil?
-            ach = Achievement.new( :armory_id => achievement['id'] )
-            ach.name = achievement['title']
-            ach.description = achievement['desc']
-            ach.icon_filename = achievement['icon']
-            ach.save!
-        end
+        ach = Achievement.from_xml( achievement )
 
         cach = self.character_achievements.find_by_achievement_id( ach.id )
+
         if cach.nil?
             # I'd like to do better on these timestamps. But the armoury is just
             # _way_ too unreliable for that to work. Date-level is as good as it gets.
@@ -102,6 +111,12 @@ class Character < ActiveRecord::Base
             created_at = Time.parse(date_completed[0,10] + "T00:00:00+00:00").to_time
             cach = self.character_achievements.create!( :achievement_id => ach.id, :created_at => created_at )
         end
+        
+        return true
+    end
+    
+    def has_achievement?( ach )
+        return !self.character_achievements.find_by_achievement_id( ach.id ).nil?
     end
     
     # don't know how this happens.
