@@ -24,13 +24,14 @@ class Character < ActiveRecord::Base
         begin
             xml = Fetcher.fetch(self.armory_url)
         rescue Exception => e
-            STDERR.puts "** Error fetching #{ self }: #{ e }"
+            puts "** Error fetching #{ self }: #{ e }"
             return false
         end
         
         character = (xml/"character")[0]
-        
-        self.achpoints = character["points"].to_i
+        if character
+            self.achpoints = character["points"].to_i
+        end
         
         achievements = (xml/"achievement").map{|a| Achievement.from_xml(a) }
         need_to_add = achievements.select{|a| !self.has_achievement?(a) }
