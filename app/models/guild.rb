@@ -46,7 +46,7 @@ class Guild < ActiveRecord::Base
                 6 => "Tauren",
                 8 => "Troll",
                 10 => "Blood Elf",
-            }[ character['raceId'].to_i ] || 'Race'
+            }[ character['raceId'].to_i ] || character['race'].to_s || 'Race'
 
             char.classname = {
                 1 => "Warrior",
@@ -59,11 +59,11 @@ class Guild < ActiveRecord::Base
                 8 => "Mage",
                 9 => "Warlock",
                 11 => "Druid",
-            }[ character['classId'].to_i ] || "Class"
+            }[ character['classId'].to_i ] || character['class'].to_s || "Class"
 
             char.gender = character['genderId'] == '0' ? "male" : "female"
             
-            char.achpoints = character['achPoints']
+            #char.achpoints = character['achPoints']
             char.guild = self
             char.save!
         end
