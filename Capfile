@@ -2,7 +2,7 @@ load 'deploy'
 
 set :application, "rachievements"
 set :domain,      "seatbelt.jerakeen.org"
-set :repository,  "git://github.com/jerakeen/rachievements.git"
+set :repository,  "git://github.com/tominsam/rachievements.git"
 set :use_sudo,    false
 set :deploy_to,   "/home/tomi/CapDeploy/#{application}"
 set :scm,         "git"

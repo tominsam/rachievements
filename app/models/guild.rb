@@ -63,6 +63,8 @@ class Guild < ActiveRecord::Base
 
             char.gender = character['genderId'] == '0' ? "male" : "female"
             
+            char.achpoints ||= 0 # sensible default
+            
             #char.achpoints = character['achPoints']
             char.guild = self
             char.save!
