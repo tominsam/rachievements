@@ -32,6 +32,24 @@
         </script>
     <% end %>
 
+    <style type="text/css">
+        #progress { 
+            -webkit-border-radius: 10px;
+            background-color: rgba(0,0,0,.7);
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            height: 80px;
+            left: 60px;
+            line-height: 80px;
+            margin: 0 auto;
+            position: absolute;
+            text-align: center;
+            top: 120px;
+            width: 200px;
+        }    
+    </style>
+
     <script type="text/javascript">
         function iPhoneOS() {
             var version = navigator.userAgent.match('iPod') || navigator.userAgent.match('iPhone') ? 1.0 : false;
@@ -44,21 +62,21 @@
             return version;
         }
         
-        var isIphone = iPhoneOS() !== false || window.location.search === '?iphone'
-
+        var isIphone = window.location.search === '?iphone' || iPhoneOS() !== false;
+        
         if ( isIphone ) {
             function xhrLinks(){
                 $('#goodbox').delegate('a[href]', 'click', function( e ){
-                    if ( e.target.hostname === window.location.hostname ){
-                        try{
-                            $('#goodbox').load( e.target.href );
-                        } catch( ex ){
-                            console.log( ex );
-                            throw( ex );
-                        } finally {
-                            e.stopPropagation();
-                            return false
-                        }
+                    
+                    var isExternal = /^http(s)?\:\/\//.test( $(e.target).attr('href') );
+                    
+                    if ( !isExternal ){
+                        $('body').append('<div id="progress">Loading...</div>');
+                        $('#goodbox').load( e.target.href, function(){
+                            $('#progress').remove();
+                        });
+                        e.stopPropagation();
+                        return false
                     }
                 })
             }
