@@ -3,8 +3,12 @@ class GuildController < ApplicationController
     before_filter :guild_from_params
     
     def show
-        # get a number of days of achievements, rather than a number-limited list.
-        @items = @guild.character_achievements.all( :conditions =>  [ 'character_achievements.created_at >= ?', Time.now - 10.days ], :order => "character_achievements.created_at desc" )
+      # get a number of days of achievements, rather than a number-limited list.
+      @items = @guild.character_achievements.all( :conditions =>  [ 'character_achievements.created_at >= ?', Time.now - 10.days ], :order => "character_achievements.created_at desc" )
+      respond_to do |format|
+        format.html 
+        format.js { render :layout => false }
+      end
     end
 
     def feed
@@ -31,6 +35,10 @@ class GuildController < ApplicationController
         end
         # no limit on this one, let's see everything. There will be at most #guild members rows
         @items = @guild.character_achievements.all( :conditions => { :achievement_id => @achievement.id }, :order => "character_achievements.created_at desc" )
+        respond_to do |format|
+          format.html 
+          format.js { render :layout => false }
+        end
     end
     
     protected

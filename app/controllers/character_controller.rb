@@ -17,6 +17,10 @@ class CharacterController < ApplicationController
                 break
             end
         end
+        respond_to do |format|
+          format.html 
+          format.js { render :layout => false }
+        end
     end
 
     def feed
