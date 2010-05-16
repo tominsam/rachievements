@@ -2,7 +2,7 @@
     <h1><%= h @title %></h1>
 </div>
 
-<div class="tributton" style="margin-top:0px;">
+<div class="tributton mobile-only" style="margin-top:0px;">
 	<div class="links">
 	  <% if params[:action] != "show" %>
 	    <%= link_to "Achievements", {:action => "show"} %>
@@ -27,6 +27,5 @@
 <p class="website-only">
   <%= link_to_if params[:action] != "show", "Achievements", :action => "show" %>
   | <%= link_to_if params[:action] != "members", "Members", :action => "members" %>
-  | <%= link_to "atom feed", :action => "feed" %>
 </p>
 </div>
