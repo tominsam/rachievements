@@ -48,9 +48,9 @@
             left: 60px;
             line-height: 80px;
             margin: 0 auto;
-            position: absolute;
+            position: fixed;
             text-align: center;
-            top: 120px;
+            top: 120px;            
             width: 200px;
         }    
     </style>
@@ -79,6 +79,7 @@
                         $('body').append('<div id="progress">Loading...</div>');
                         $('#goodbox').load( e.target.href, function(){
                             $('#progress').remove();
+                            $('body').scrollTop( 0 );
                         });
                         e.stopPropagation();
                         return false
