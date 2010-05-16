@@ -10,6 +10,13 @@ class GuildController < ApplicationController
         format.js { render :layout => false }
       end
     end
+    
+    def members
+      respond_to do |format|
+        format.html 
+        format.js { render :layout => false }
+      end
+    end
 
     def feed
         # TODO - there's probably a useful helper for this stuff.
