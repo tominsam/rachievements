@@ -3,10 +3,11 @@
 <div class="single-achievement">
   <img src="<%= single_achievement.achievement.icon_url %>" width="51" height="51">
   <div>
-    <h3><%= link_to h(single_achievement.character.name), character_url( single_achievement.character ) %>
-    gained the achievement
-    '<%= link_to h(single_achievement.achievement.name), achievement_url( single_achievement.achievement, single_achievement.character.guild ) %>'</h3>
-    <!-- <p><span class="js-date"><%= single_achievement.created_at.strftime("%A %d %B %Y") %></span></p> -->
+    <h3>
+        <%= link_to h(single_achievement.character.name), character_url( single_achievement.character, @realm ) %>
+        gained the achievement
+        '<%= link_to h(single_achievement.achievement.name), achievement_url( single_achievement.achievement, single_achievement.character.guild ) %>'
+    </h3>
     <p><%= h single_achievement.achievement.description %></p>
   </div>
 </div>

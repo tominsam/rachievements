@@ -14,9 +14,9 @@
       <th class="sortable last-fetched">Last fetched</th> 
     </tr>
   </thead>
-  <% for character in @guild.characters %>
+  <% @guild.characters.each do |character| %>
     <tr>
-      <td><%= link_to h(character.name), character_url(character) %></td>
+      <td><%= link_to h(character.name), character_url(character, @realm) %></td>
       <td><%= h character.race %></td>
       <td><%= h character.classname %></td>
       <td><%= h character.level %></td>

@@ -11,9 +11,9 @@ module ApplicationHelper
         return url_for({ :only_path => only_path, :controller => "guild", :action => "index", :region => guild.realm.region, :realm => guild.realm.urltoken, :name => guild.urltoken }.merge(extra))
     end
     
-    def character_url( character, extra = {} )
+    def character_url( character, realm, extra = {} )
         only_path = (controller.class != GuildMailer)
-        return url_for({ :only_path => only_path, :controller => "character", :action => "index", :region => character.realm.region, :realm => character.realm.urltoken, :name => character.urltoken }.merge(extra))
+        return url_for({ :only_path => only_path, :controller => "character", :action => "index", :region => realm.region, :realm => realm.urltoken, :name => character.urltoken }.merge(extra))
     end
     
     def achievement_url( ach, guild, extra = {} )
