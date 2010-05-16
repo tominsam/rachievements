@@ -6,13 +6,6 @@
 
 <div id="content">
     <%= render :partial => "shared/achievement_list", :object => @items %>
-
-    <p class="metadata character-metadata">
-      <% if params[:action] != "show" %>
-      <%= link_to "Achievements", :action => "show" %>
-      <% end %> <span class="website-only">| <%= link_to "atom feed", :action => "feed" %></span>
-    </p>
-    
     <p class="metadata character-metadata data-freshness website-only">
         Last fetched <%= @character.fetched_at ? time_ago_in_words( @character.fetched_at ) + " ago" : "never" %>
     </p>
