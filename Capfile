@@ -13,7 +13,7 @@ role :db,  domain, :primary => true
 
 namespace :deploy do
   task :start, :roles => :app do
-    run "touch #{current_release}/tmp/restart.txt"
+    run "sudo webroar restart rachievements"
   end
 
   task :stop, :roles => :app do
@@ -22,7 +22,7 @@ namespace :deploy do
 
   desc "Restart Application"
   task :restart, :roles => :app do
-    run "touch #{current_release}/tmp/restart.txt"
+    run "sudo webroar restart rachievements"
   end
 end
 
