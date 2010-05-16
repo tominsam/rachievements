@@ -1,8 +1,8 @@
 <% if single_achievement.achievement %>
 
-<div style="width: 90%; overflow: hidden">
-  <img src="<%= single_achievement.achievement.icon_url %>" width="51" height="51" style="float: left; padding: 3px">
-  <div style="margin-left: 60px">
+<div class="single-achievement">
+  <img src="<%= single_achievement.achievement.icon_url %>" width="51" height="51">
+  <div>
     <h3><%= link_to h(single_achievement.character.name), character_url( single_achievement.character ) %>
     gained the achievement
     '<%= link_to h(single_achievement.achievement.name), achievement_url( single_achievement.achievement, single_achievement.character.guild ) %>'</h3>

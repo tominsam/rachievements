@@ -1,4 +1,6 @@
-A Ruby server for amalgamating World of Warcraft guild achievement feeds.
+**rachievements** is a Ruby server for amalgamating World of Warcraft guild achievement feeds.
+
+Use the `rake cron` job to fetch achievement data.
 
 For what it's worth, there's a live version of this codebase running at <http://achievements.movieos.org> tracking the achievements of [my guild][1].
 
