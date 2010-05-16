@@ -46,10 +46,10 @@
                     var isExternal = /^http(s)?\:\/\//.test( $(e.target).attr('href') );
                     
                     if ( !isExternal ){
+                        $('body').scrollTop( 0 );
                         $('body').append('<div id="progress">Loading...</div>');
                         $('#goodbox').load( e.target.href, function(){
                             $('#progress').remove();
-                            $('body').scrollTop( 0 );
                             fdTableSort.init('members');
                         });
                         e.stopPropagation();
