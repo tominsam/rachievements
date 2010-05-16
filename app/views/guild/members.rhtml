@@ -1,29 +1,29 @@
 <% @title = "Members of #{@guild.name}" %>
 <%= render :partial => "header" %>
-
 <div class="content">
-<table id="members" class="sortable sortable-onload-0 rowstyle-evenrow" cellspacing="0" cellpadding="0" border="0">
-  <thead>
-    <tr>
-      <th class="sortable">Name</th>
-      <th class="sortable">Race</th>
-      <th class="sortable">Class</th>
-      <th class="sortable favour-reverse"><span class="website-only">Level</span><span class="mobile-only">Lvl</span></th>
-      <th class="sortable">Rank</th>
-      <th class="sortable favour-reverse"><span class="website-only">Achievement points</span><span class="mobile-only">Ach. pts</span></th>
-      <th class="sortable last-fetched">Last fetched</th> 
-    </tr>
-  </thead>
-  <% @guild.characters.each do |character| %>
-    <tr>
-      <td><%= link_to h(character.name), character_url(character, @realm) %></td>
-      <td><%= h character.race %></td>
-      <td><%= h character.classname %></td>
-      <td><%= h character.level %></td>
-      <td><%= h character.rank %></td>
-      <td><%= h character.achpoints %></td>
-      <td class="last-fetched"><%= time_ago_in_words(character.fetched_at) unless character.fetched_at.nil? %></td>
-    </tr>
-  <% end %>
-</table>
+    <table id="members" class="sortable sortable-onload-0 rowstyle-evenrow" cellspacing="0" cellpadding="0" border="0">
+      <thead>
+        <tr>
+          <th class="sortable">Name</th>
+          <th class="sortable">Race</th>
+          <th class="sortable">Class</th>
+          <th class="sortable favour-reverse"><span class="website-only">Level</span><span class="mobile-only">Lvl</span></th>
+          <th class="sortable">Rank</th>
+          <th class="sortable favour-reverse"><span class="website-only">Achievement points</span><span class="mobile-only">Ach. pts</span></th>
+          <th class="sortable last-fetched">Last fetched</th> 
+        </tr>
+      </thead>
+      <% @guild.characters.each do |character| %>
+        <tr>
+          <td><%= link_to h(character.name), character_url(character, @realm) %></td>
+          <td><%= h character.race %></td>
+          <td><%= h character.classname %></td>
+          <td><%= h character.level %></td>
+          <td><%= h character.rank %></td>
+          <td><%= h character.achpoints %></td>
+          <td class="last-fetched"><%= time_ago_in_words(character.fetched_at) unless character.fetched_at.nil? %></td>
+        </tr>
+      <% end %>
+    </table>
+    <%= render :partial => 'metadata' %>
 </div>

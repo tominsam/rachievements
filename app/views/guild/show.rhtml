@@ -1,8 +1,9 @@
 <% content_for :rss_autodiscovery do %>
-<%= auto_discovery_link_tag(:atom, {:action => "feed"}) %>
+    <%= auto_discovery_link_tag(:atom, {:action => "feed"}) %>
 <% end %>
 <% @title = "Achievements of #{@guild.name}" %>
 <%= render :partial => "header" %>
 <div id="content">
-<%= render :partial => "shared/achievement_list", :object => @items %>
+    <%= render :partial => "shared/achievement_list", :object => @items %>
+    <%= render :partial => 'metadata' %>    
 </div>

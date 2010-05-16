@@ -1,0 +1,5 @@
+<p class="metadata guild-metadata">
+  This guild is on <%= h @guild.realm %>.
+  <span class="website-only">Last fetched <%= @guild.fetched_at ? time_ago_in_words(@guild.fetched_at) + " ago" : "never" %>.</span>
+  <span class="website-only">Oldest toon is <%= oldest = @guild.characters.find(:first, :order => "fetched_at").fetched_at; oldest ? time_ago_in_words(oldest) + " old" : "unfetched" %>.</span>
+</p>
