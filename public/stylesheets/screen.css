@@ -1,0 +1,21 @@
+/* screen.css: Shared CSS content */
+
+.data-freshness {
+    color: gray;
+}
+
+.appdescription {
+    font-style:italic;
+}
+
+.single-achievement {
+    width: 90%;
+    overflow: hidden;
+}
+.single-achievement img {
+    float: left;
+    padding: 3px;
+}
+.single-achievement div {
+    margin-left: 60px;
+}
