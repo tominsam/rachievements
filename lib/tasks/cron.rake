@@ -1,3 +1,4 @@
+desc 'Fetch WoW achievement data from the Armory.'
 task :cron => :environment do
     
     Guild.find(:all, :conditions => [ "fetched_at < ? or fetched_at is null", Time.now.utc - 30.minutes ], :order => "fetched_at", :include => [ :realm ] ).each{|guild|
