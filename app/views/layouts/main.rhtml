@@ -8,11 +8,8 @@
       <%= stylesheet_link_tag 'screen.css', :media => "screen" %>
       <%= stylesheet_link_tag 'style.css', :media => "screen and (min-width: 481px)" %>
       <%= stylesheet_link_tag 'iphone.css', :media => "only screen and (max-width: 480px)" %>
-      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
-      <%= javascript_include_tag "tablesort.min.js" %>
       <%= yield :rss_autodiscovery %>
       <!-- http://www.wowhead.com/?forums&topic=3464 -->
-      <script type="text/javascript" src="http://www.wowhead.com/widgets/power.js"></script>
     </head>
     <body>
 
@@ -24,41 +21,14 @@
         rachievments &mdash; another fine <a href="http://jerakeen.org/">Tom Insam</a> product. <a href="http://github.com/tominsam/rachievements/">It's open-source</a>!
     </div>
 
-    <% if ENV["RAILS_ENV"] == 'production' %>
-        <script type="text/javascript">
-            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-        </script>
-        <script type="text/javascript">
-            try {
-                var pageTracker = _gat._getTracker("UA-3602266-3");
-                pageTracker._trackPageview();
-            } catch(err){}
-        </script>
-    <% end %>
-
-    <style type="text/css">
-        #progress { 
-            -webkit-border-radius: 10px;
-            background-color: rgba(0,0,0,.7);
-            color: white;
-            font-size: 18px;
-            font-weight: bold;
-            height: 80px;
-            left: 60px;
-            line-height: 80px;
-            margin: 0 auto;
-            position: absolute;
-            text-align: center;
-            top: 120px;
-            width: 200px;
-        }    
-    </style>
-
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+    <%= javascript_include_tag "tablesort.min.js" %>
+    <script type="text/javascript" src="http://www.wowhead.com/widgets/power.js"></script>
     <script type="text/javascript">
         function iPhoneOS() {
             var version = navigator.userAgent.match('iPod') || navigator.userAgent.match('iPhone') ? 1.0 : false;
-            if (match = /iPhone OS (.*) like Mac OS X/.exec(navigator.userAgent)) {
+            var match = /iPhone OS (.*) like Mac OS X/.exec(navigator.userAgent);
+            if (match) {
                 version = parseInt(match[1].replace('_', ''), 10) / 100;
                 if (version < 1) {
                     version *= 10;
@@ -79,11 +49,12 @@
                         $('body').append('<div id="progress">Loading...</div>');
                         $('#goodbox').load( e.target.href, function(){
                             $('#progress').remove();
+                            fdTableSort.init('members');
                         });
                         e.stopPropagation();
-                        return false
+                        return false;
                     }
-                })
+                });
             }
 
             $.ajaxSetup({
@@ -95,6 +66,18 @@
             $(document).ready( xhrLinks );
         }
     </script>
+    <% if ENV["RAILS_ENV"] == 'production' %>
+        <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript">
+            try {
+                var pageTracker = _gat._getTracker("UA-3602266-3");
+                pageTracker._trackPageview();
+            } catch(err){}
+        </script>
+    <% end %>
     </body>
 </html>
 

@@ -1,8 +1,12 @@
 **rachievements** is a Ruby server for amalgamating World of Warcraft guild achievement feeds.
 
+## Usage notes and demo
+
 Use the `rake cron` job to fetch achievement data.
 
 For what it's worth, there's a live version of this codebase running at <http://achievements.movieos.org> tracking the achievements of [my guild][1].
+
+## Background
 
 Some notes cribbed from [my blog entry](http://jerakeen.org/notes/2009/02/warcraft-guild-achievements-as-rss/):
 
@@ -18,7 +22,12 @@ Anyway, now I have a list of everyone in the guild, and their last 5 achievement
 
 Because the Armoury is unreliable, and my script is slow, I don't use this thing to generate the data on demand. I have a crontab that fetches toons from the armoury every 3 hours. It's throttled, doens't try to hit everyone at once, and prioritises people we haven't fetched in the longest, so it does a reasonable job of keeping up. If it doesn't explode, it copies the result into the database, and the front end display it. If it _does_ explode, then meh, I'll try again in an hour. The feed isn't exactly timely, but we're not controlling nuclear power stations here, we're tracking a computer game. It'll do.
 
+## Acknowledgements
+
+Frequency Decoder's [fdTablesort][8] is used to sort the guild members table.
+ 
 [1]: http://www.unassignedvariable.org/
 [3]: http://eu.wowarmory.com/guild-info.xml?r=Nordrassil&n=unassigned+variable&p=1
 [4]: http://www.aaronsw.com/2002/xmltramp/
 [7]: http://www.wowhead.com/?achievement=1559
+[8]: http://www.frequency-decoder.com/2006/09/16/unobtrusive-table-sort-script-revisited
