@@ -70,6 +70,11 @@ img {
 	-webkit-border-bottom-left-radius: 8px;
 	-webkit-border-bottom-right-radius: 8px;
 }
+
+h3 {
+	margin: 0;
+}
+
 .footer {
     display:none;
 }
