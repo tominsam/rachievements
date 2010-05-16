@@ -1,12 +1,32 @@
-<h1><%= h @guild.name %> on <%= h @guild.realm %></h1>
+<div class="header">
+    <h1><%= h @guild.name %></h1>
+</div>
 
-<p>
-  Last fetched from <%= link_to "armory", @guild.armory_url %>: <%= @guild.fetched_at ? time_ago_in_words(@guild.fetched_at) + " ago" : "never" %>.
-  Oldest toon is <%= oldest = @guild.characters.find(:first, :order => "fetched_at").fetched_at; oldest ? time_ago_in_words(oldest) + " old" : "unfetched" %>.
+<div class="tributton" style="margin-top:0px;">
+	<div class="links">
+	  <% if params[:action] != "show" %>
+	    <%= link_to "Achievements", {:action => "show"} %>
+	    <%= link_to "Members", {:action => "members"}, {:class => "pressed"} %>
+	  <% else %>
+	    <%= link_to "Achievements", {:action => "show"}, {:class=>"pressed"} %>
+	    <%= link_to "Members", {:action => "members"} %>
+	  <% end %>
+  </div>
+</div>
+
+
+<div class="content">
+
+  
+<p class="metadata guild-metadata">
+  This guild is on <%= h @guild.realm %>.
+  <span class="website-only">Last fetched <%= @guild.fetched_at ? time_ago_in_words(@guild.fetched_at) + " ago" : "never" %>.</span>
+  <span class="website-only">Oldest toon is <%= oldest = @guild.characters.find(:first, :order => "fetched_at").fetched_at; oldest ? time_ago_in_words(oldest) + " old" : "unfetched" %>.</span>
 </p>
 
-<p>
+<p class="website-only">
   <%= link_to_if params[:action] != "show", "Achievements", :action => "show" %>
   | <%= link_to_if params[:action] != "members", "Members", :action => "members" %>
   | <%= link_to "atom feed", :action => "feed" %>
 </p>
+</div>

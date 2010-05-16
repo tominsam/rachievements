@@ -1,7 +1,7 @@
 /* style here, ripped off from jerakeen.org */
 
 * {padding: 0; margin: 0;}
-
+.mobile-only {display:none;}
 body {
   font-family: Trebuchet, "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
   background: #f3f3f3;
@@ -80,3 +80,22 @@ table td, table th {
 }
 
 .goodbox { overflow: hidden; width: 100%; }
+
+.credits { font-size: 90%; padding-top:2em;}
+
+
+.single-achievement {
+    width: 90%;
+    overflow: hidden;
+}
+.single-achievement img {
+    float: left;
+    padding: 3px;
+}
+.single-achievement div {
+    margin-left: 60px;
+}
+
+.data-freshness {
+    opacity: 0.7;
+}
