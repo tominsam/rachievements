@@ -37,7 +37,7 @@
             return version;
         }
         
-        var isIphone = window.location.search === '?iphone' || iPhoneOS() !== false;
+        var isIphone = window.location.search === '?iphone' // || iPhoneOS() !== false;
         
         if ( isIphone ) {
             function xhrLinks(){
