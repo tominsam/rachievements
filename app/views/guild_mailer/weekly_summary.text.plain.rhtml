@@ -14,7 +14,7 @@ In the last week..
  * <%= item.achievement.name %> (<%= item.achievement.description %>)<% end %>
 <% if items.size > 6 %>
 And a whole lot more stuff (<%= items.size %> things total)<% end %>
-<<%= character_url( character ) %>>
+<<%= character_url( character, @guild.realm ) %>>
 
 <% end %>
 See everything that's going down on the guild page
