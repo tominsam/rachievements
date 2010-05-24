@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090408081112) do
+ActiveRecord::Schema.define(:version => 20100524193130) do
 
   create_table "achievements", :force => true do |t|
     t.string   "name",                        :null => false
@@ -26,6 +26,9 @@ ActiveRecord::Schema.define(:version => 20090408081112) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "character_achievements", ["achievement_id"], :name => "index_character_achievements_on_achievement_id"
+  add_index "character_achievements", ["character_id"], :name => "index_character_achievements_on_character_id"
 
   create_table "characters", :force => true do |t|
     t.string   "name",       :limit => 64, :null => false
