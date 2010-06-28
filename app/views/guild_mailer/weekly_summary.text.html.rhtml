@@ -11,6 +11,8 @@
 
 <p>In the last week..</p>
 
+<% if @people %>
+
 <% for character, items in @people %>
 <p><%= link_to h(character.name), character_url(character, @guild.realm) %> (level <%= character.level %> <%= character.classname %>, <%= character.achpoints %> achievement points) gained the following achievements:</p>
 <ul>
@@ -21,6 +23,13 @@
   <li>And a <%= link_to "whole lot more stuff (#{ items.size } things total)", character_url( character, @guild.realm ) %></li>
   <% end %>
 </ul>
+<% end %>
+
+<% else %> 
+
+<p>.<br>.<br>.<br>
+NOTHING happened at ALL. Oh the HUMANITY. I don't think I can go ON like this.</p>
+
 <% end %>
 
 <p>See everything that's going down <%= link_to "on the guild page", guild_url( @guild ) %>.</p>

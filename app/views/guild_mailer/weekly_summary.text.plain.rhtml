@@ -8,6 +8,8 @@ Exciting milestones:
 
 In the last week..
 
+<% if @people %>
+
 <% for character, items in @people %>
 <%= character.name %> (level <%= character.level %> <%= character.classname %>, <%= character.achpoints %> achievement points) gained the following achievements:
 <% for item in ( items.size > 6 ? items[0,5] : items ) %>
@@ -17,6 +19,16 @@ And a whole lot more stuff (<%= items.size %> things total)<% end %>
 <<%= character_url( character, @guild.realm ) %>>
 
 <% end %>
+
+<% else %> 
+.
+.
+.
+
+NOTHING happened at ALL. Oh the HUMANITY. I don't think I can go ON like this.
+
+<% end %>
+
 See everything that's going down on the guild page
 
 <<%= guild_url( @guild ) %>>
