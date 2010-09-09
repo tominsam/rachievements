@@ -12,9 +12,9 @@ In the last week..
 
 <% for character, items in @people %>
 <%= character.name %> (level <%= character.level %> <%= character.classname %>, <%= character.achpoints %> achievement points) gained the following achievements:
-<% for item in ( items.size > 6 ? items[0,5] : items ) %>
+<% for item in ( items.size > 10 ? items[0,9] : items ) %>
  * <%= item.achievement.name %> (<%= item.achievement.description %>)<% end %>
-<% if items.size > 6 %>
+<% if items.size > 10 %>
 And a whole lot more stuff (<%= items.size %> things total)<% end %>
 <<%= character_url( character, @guild.realm ) %>>
 
