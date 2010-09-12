@@ -16,10 +16,10 @@
 <% for character, items in @people %>
 <p><%= link_to h(character.name), character_url(character, @guild.realm) %> (level <%= character.level %> <%= character.classname %>, <%= character.achpoints %> achievement points) gained the following achievements:</p>
 <ul>
-  <% for item in ( items.size > 10 ? items[0,9] : items ) %>
+  <% for item in ( items.size > 15 ? items[0,14] : items ) %>
     <li><%= link_to h(item.achievement.name), achievement_url(item.achievement, item.character.guild) %> (<%= item.achievement.description %>)</li>
   <% end %>
-  <% if items.size > 10 %>
+  <% if items.size > 15 %>
   <li>And a <%= link_to "whole lot more stuff (#{ items.size } things total)", character_url( character, @guild.realm ) %></li>
   <% end %>
 </ul>
