@@ -3,12 +3,18 @@ class GuildController < ApplicationController
     before_filter :guild_from_params
     
     def show
-      # get a number of days of achievements, rather than a number-limited list.
-      @items = @guild.character_achievements.includes(:character_achievements).having( [ 'character_achievements.created_at >= ?', Time.now - 10.days ] ).order("character_achievements.created_at desc").limit(50)
-      respond_to do |format|
-        format.html 
-        format.js { render :layout => false }
-      end
+        @page = params[:page].to_i
+        if @page == 0
+            @page = 1
+        end
+        @items = @guild.character_achievements.paginate(@page, 30)
+        @total = @guild.character_achievements.count
+        @items.length # have to call this. don't understand why.
+
+        respond_to do |format|
+            format.html 
+            format.js { render :layout => false }
+        end
     end
     
     def members

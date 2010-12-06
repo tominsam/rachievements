@@ -46,6 +46,6 @@ module Rachievement
 end
 
 # This is where I monkey patch built-in classes
-require "#{RAILS_ROOT}/lib/extend_builtins"
+require "#{Rails.root}/lib/extend_builtins"
 
 ARMORY_LANGUAGE = 'en'

@@ -33,7 +33,10 @@ class Guild < ActiveRecord::Base
         end
         
         (xml/"character").each do |character|
-            char = self.realm.characters.find_by_name( character['name'] ) || self.realm.characters.new( :name => character[:name] )
+            char = self.realm.characters.find_by_name( character['name'] )
+            if char.nil?
+                char = self.realm.characters.new( :name => character[:name] )
+            end
 
             [ :level, :rank ].each do |p|
                 char[p] = character[p.to_s]
@@ -63,10 +66,13 @@ class Guild < ActiveRecord::Base
 
             char.gender = character['genderId'] == '0' ? "male" : "female"
             
-            char.achpoints ||= 0 # sensible default
-            
-            #char.achpoints = character['achPoints']
-            char.guild = self
+            char.achpoints ||= 0 # sensible default, the number in the guild XML response isn't reliable
+
+            if char.guild != self
+                char.guild = self
+                # TODO - associate all achievements
+            end
+
             char.save!
         end
         self.fetched_at = Time.now.utc
