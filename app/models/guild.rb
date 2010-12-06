@@ -72,4 +72,10 @@ class Guild < ActiveRecord::Base
         self.fetched_at = Time.now.utc
         self.save!
     end
+    
+    
+    def oldest_fetch
+        return characters.order("fetched_at").first.fetched_at
+    end
+
 end

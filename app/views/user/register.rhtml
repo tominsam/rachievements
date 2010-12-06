@@ -1,6 +1,6 @@
 <p>Register</p>
 
-<% form_for :user, @user do |f| %>
+<%= form_for :user, @user do |f| %>
   <%= f.error_messages %>
 
   <p><%= f.label :username %>: <%= f.text_field :username %></p>

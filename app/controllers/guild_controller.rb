@@ -4,7 +4,7 @@ class GuildController < ApplicationController
     
     def show
       # get a number of days of achievements, rather than a number-limited list.
-      @items = @guild.character_achievements.all( :conditions =>  [ 'character_achievements.created_at >= ?', Time.now - 10.days ], :order => "character_achievements.created_at desc" )
+      @items = @guild.character_achievements.includes(:character_achievements).having( [ 'character_achievements.created_at >= ?', Time.now - 10.days ] ).order("character_achievements.created_at desc").limit(50)
       respond_to do |format|
         format.html 
         format.js { render :layout => false }
