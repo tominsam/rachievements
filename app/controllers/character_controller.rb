@@ -7,7 +7,7 @@ class CharacterController < ApplicationController
         if @page == 0
             @page = 1
         end
-        @items = @character.character_achievements.paginate(@page, 30)
+        @items = @character.character_achievements.paginate(@page, 30).includes(:character)
         @total = @character.character_achievements.count
         @items.length # have to call this. don't understand why.
 

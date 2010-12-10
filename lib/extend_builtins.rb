@@ -4,5 +4,3 @@ module Enumerable
     reject { |v| seen[yield(v)] }
   end
 end
-
-

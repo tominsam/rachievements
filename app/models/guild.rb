@@ -3,8 +3,7 @@ require 'fetcher'
 class Guild < ActiveRecord::Base
     belongs_to :realm
     has_many :characters, :order => "rank"
-    has_many :character_achievements, :through => :characters, :order => "character_achievements.created_at desc", :include => [ :achievement ] # TODO - because we're through characters here, we can't include characters?
-    
+    has_many :guild_achievements, :order => "guild_achievements.created_at desc, guild_achievements.id desc", :include => [ :achievement ]
     validates_uniqueness_of :name, :scope => :realm_id
     
     def to_s
@@ -84,6 +83,25 @@ class Guild < ActiveRecord::Base
     
     def oldest_fetch
         return characters.order("fetched_at").first.fetched_at
+    end
+    
+    def generate_guild_achievements
+        achievements = []
+        for c in self.characters.includes(:character_achievements)
+            for a in c.character_achievements
+                achievements << GuildAchievement.new(
+                    :guild_id => self.id,
+                    :achievement_id => a.achievement_id,
+                    :character_id => c.id,
+                    :created_at => a.created_at
+                )
+            end
+        end
+        ActiveRecord::Base.transaction do
+            GuildAchievement.delete_all( :guild_id => self.id )
+            # ugly.
+            achievements.each(&:save)
+        end
     end
 
 end
