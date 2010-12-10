@@ -40,7 +40,10 @@ class GuildMailer < ActionMailer::Base
         @total = @guild.characters.count
         @levels = @items.select{|i| i.achievement.name.match(/^Level \d+/) }.map{|i| [ i.character, i.achievement.name.downcase ] }.sort_by{|char, level| level }.reverse.uniq_by{|character, level| character }
         
-        mail( :to => email, :subject => subject )
+        mail( :to => email, :subject => subject ) do |format|
+            format.text
+            format.html
+        end
     end
 
 end
