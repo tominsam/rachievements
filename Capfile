@@ -30,6 +30,10 @@ namespace :custom do
   task :config, :roles => :app do
     run "ln -sf #{deploy_to}/shared/database.yml #{current_release}/config"
   end
+  task :bundler do
+    run "cd #{release_path} && bundle install"
+  end
 end
 
 after "deploy:update_code", "custom:config"
+after "deploy:update_code", "custom:bundler"
