@@ -13,7 +13,7 @@ In the last week..
 <% for character, items in @people %>
 <%= character.name %> (level <%= character.level %> <%= character.classname %>, <%= character.achpoints %> achievement points) gained the following achievements:
 <% for item in ( items.size > 15 ? items[0,14] : items ) %>
- * <%= item.achievement.name %> (<%= item.achievement.description %>)<% end %>
+ * <% if item.respond_to? :first and item.first %>Guild first <% end %><%= item.achievement.name %> (<%= item.achievement.description %>)<% end %>
 <% if items.size > 15 %>
 And a whole lot more stuff (<%= items.size %> things total)<% end %>
 <<%= character_url( character, @guild.realm ) %>>
