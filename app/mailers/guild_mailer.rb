@@ -5,7 +5,8 @@ class GuildMailer < ActionMailer::Base
     # shouldn't be here
     default_url_options[:host] = "achievements.movieos.org"
     
-    default :from => "Tom's Magical Mail Sending Robot <tom@movieos.org>"
+    default :from => "Tom's Magical Mail Sending Robot <tom.insam@gmail.com>"
+    default :sender => "tom.insam@gmail.com"
 
     def GuildMailer.send_weekly_summaries
         # call this method on mondays. It can cope with being called more than

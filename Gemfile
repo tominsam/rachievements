@@ -20,3 +20,4 @@ gem 'capistrano'
 # I deploy onto webroar
 gem 'starling'
 gem 'webroar'
+gem "system_timer"
