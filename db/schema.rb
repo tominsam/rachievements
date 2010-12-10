@@ -48,9 +48,10 @@ ActiveRecord::Schema.define(:version => 20101210180543) do
   end
 
   create_table "guild_achievements", :force => true do |t|
-    t.integer  "guild_id",       :null => false
-    t.integer  "character_id",   :null => false
-    t.integer  "achievement_id", :null => false
+    t.integer  "guild_id",                          :null => false
+    t.integer  "character_id",                      :null => false
+    t.integer  "achievement_id",                    :null => false
+    t.boolean  "first",          :default => false, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

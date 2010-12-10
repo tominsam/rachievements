@@ -4,6 +4,7 @@ class CreateGuildAchievements < ActiveRecord::Migration
       t.integer :guild_id, :null => false
       t.integer :character_id, :null => false
       t.integer :achievement_id, :null => false
+      t.boolean :first, :default => false, :null => false
       t.timestamps
     end
     add_index :guild_achievements, [ :guild_id ]

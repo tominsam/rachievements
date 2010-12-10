@@ -97,6 +97,22 @@ class Guild < ActiveRecord::Base
                 )
             end
         end
+        
+        # flag guild firsts
+        seen = {}
+        achievements.group_by(&:created_at).sort_by{|date,list| date}.each do |date,list|
+            list.each do |ach|
+                if !seen[ ach.achievement_id ]
+                    ach.first = true
+                end
+            end
+            # can't do this in the first loop, because more than one person might get an achievement on the same
+            # day, and I want to award guild first to all of them
+            list.each do |ach|
+                seen[ach.achievement_id] = 1
+            end
+        end
+
         ActiveRecord::Base.transaction do
             GuildAchievement.delete_all( :guild_id => self.id )
             # ugly.

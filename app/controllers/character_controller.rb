@@ -7,8 +7,14 @@ class CharacterController < ApplicationController
         if @page == 0
             @page = 1
         end
-        @items = @character.character_achievements.paginate(@page, 30).includes(:character)
-        @total = @character.character_achievements.count
+        # do it this way to get the guild first messages
+        if @character.guild
+            list = @character.guild.guild_achievements.where( :character_id => @character )
+        else
+            list = @character.character_achievements
+        end
+        @items = list.paginate(@page, 30).includes(:character)
+        @total = list.count
         @items.length # have to call this. don't understand why.
 
         respond_to do |format|
