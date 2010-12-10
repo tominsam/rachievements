@@ -28,7 +28,7 @@ end
 
 namespace :custom do
   task :config, :roles => :app do
-    run "ln -s #{deploy_to}/shared/database.yml #{current_release}/config"
+    run "ln -sf #{deploy_to}/shared/database.yml #{current_release}/config"
   end
 end
 
