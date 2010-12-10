@@ -1,3 +1,5 @@
+require 'fetcher'
+
 class Guild < ActiveRecord::Base
     belongs_to :realm
     has_many :characters, :order => "rank"
@@ -18,7 +20,7 @@ class Guild < ActiveRecord::Base
     end
     
     def armory_url
-        "http://#{self.realm.hostname}/guild-info.xml?r=#{ CGI.escape( self.realm.name ) }&n=#{ CGI.escape( self.name ) }&p=1"
+        "http://#{self.realm.hostname}/guild-info.xml?r=#{ CGI.escape( self.realm.name ) }&n=#{ CGI.escape( self.name ) }&p=1&rhtml=no"
     end
     
     def refresh_from_armory
@@ -28,7 +30,7 @@ class Guild < ActiveRecord::Base
         begin
             xml = Fetcher.fetch(self.armory_url)
         rescue Exception => e
-            STDERR.puts "** Error fetching: #{ e }"
+            STDERR.puts "** Error fetching: #{ e }\n  #{e.backtrace.join("\n  ")}"
             return
         end
         

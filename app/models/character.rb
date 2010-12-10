@@ -15,7 +15,7 @@ class Character < ActiveRecord::Base
     end
 
     def armory_url
-        return "http://#{self.realm.hostname}/character-achievements.xml?r=#{ CGI.escape( self.realm.name ) }&n=#{ CGI.escape( self.name ) }"
+        return "http://#{self.realm.hostname}/character-achievements.xml?r=#{ CGI.escape( self.realm.name ) }&n=#{ CGI.escape( self.name ) }&rhtml=no"
     end
 
     def refresh_from_armory( do_backfill = false )
