@@ -28,12 +28,12 @@ class GuildController < ApplicationController
         # TODO - there's probably a useful helper for this stuff.
         @title = "Achievements for #{ @guild.name }"
         @guid = "tag:achievements.heroku.com,2009-03-06:/#{ @realm.region }/#{ @realm.urltoken }/guild/#{ @guild.urltoken }"
-        @items = @guild.character_achievements.all( :limit => 20, :order => "character_achievements.created_at desc" )
+        @items = @guild.character_achievements.all( :limit => 30, :order => "character_achievements.created_at desc" )
         render :template => "shared/feed", :layout => false
     end
     
     def summary
-        @items = @guild.character_achievements.all( :conditions => [ 'character_achievements.created_at >= ?', Date.today - 1.week ] )
+        @items = @guild.character_achievements.where( [ 'character_achievements.created_at >= ?', Date.today - 1.week ] )
         @people = @items.group_by{|i| i.character }.sort_by{|character, items| [ character.achpoints * -1, character.rank ] }
         @level_80 = @guild.characters.count(:conditions => { :level => 80 } )
         @total = @guild.characters.count

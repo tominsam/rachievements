@@ -3,20 +3,14 @@ class CharacterController < ApplicationController
     before_filter :character_from_params
 
     def show
-        if params[:all]
-            @items = @character.character_achievements.all( :order => "character_achievements.created_at desc" )
-            return
+        @page = params[:page].to_i
+        if @page == 0
+            @page = 1
         end
+        @items = @character.character_achievements.paginate(@page, 30)
+        @total = @character.character_achievements.count
+        @items.length # have to call this. don't understand why.
 
-        # get a numberof days of achievements, rather than a number-limited list.
-        time = Time.now
-        while @items.nil? or @items.size < 3
-            time -= 10.days
-            @items = @character.character_achievements.all( :conditions =>  [ 'character_achievements.created_at >= ?', time ], :order => "character_achievements.created_at desc" )
-            if time < Time.now - 2.months
-                break
-            end
-        end
         respond_to do |format|
           format.html 
           format.js { render :layout => false }

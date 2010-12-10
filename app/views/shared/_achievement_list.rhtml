@@ -8,7 +8,8 @@
 <% else %>
 
   <% if @page %>
-    <p>showing page <%= @page %> of <%= @total %> achievements. <%= link_to "Next page", :page => @page + 1 %></p>
+    <br>
+    <p>showing page <%= @page %> of <%= @total %> achievements. <%= link_to "Next page »", :page => @page + 1 %></p>
   <% end %>
 
   <% for date, list in achievement_list.group_by{|a| a.created_at.to_date }.sort_by{|d,list| d }.reverse %>
@@ -22,7 +23,8 @@
   <% end %>
 
   <% if @page %>
-    <p>showing page <%= @page %> of <%= @total %> achievements. <%= link_to "Next page", :page => @page + 1 %></p>
+    <br>
+    <p>showing page <%= @page %> of <%= @total %> achievements. <%= link_to "Next page »", :page => @page + 1 %></p>
   <% end %>
 
 <% end %>
