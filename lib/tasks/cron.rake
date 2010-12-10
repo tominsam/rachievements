@@ -23,8 +23,8 @@ task :cron => :environment do
         $stdout.flush
     }
     puts "** character fetch complete - fetched #{ count } of #{ total } successfully"
-    
-    p guilds
+
+    # recache all the guilds that have been touched
     for guild in guilds
         guild.generate_guild_achievements
     end
