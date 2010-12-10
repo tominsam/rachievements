@@ -3,7 +3,10 @@
 <% end %>
 <% @title = "Achievements of #{@guild.name}" %>
 <%= render :partial => "header" %>
+
+
 <div id="content">
     <%= render :partial => "shared/achievement_list", :object => @items %>
     <%= render :partial => 'metadata' %>    
 </div>
+

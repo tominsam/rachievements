@@ -2,7 +2,7 @@ class Character < ActiveRecord::Base
     belongs_to :realm
     belongs_to :guild
 
-    has_many :character_achievements, :order => "character_achievements.created_at desc, character_achievements.id", :include => [ :achievement ]
+    has_many :character_achievements, :order => "character_achievements.created_at desc, character_achievements.id desc", :include => [ :achievement ]
 
     validates_uniqueness_of :name, :scope => :realm_id
     
@@ -15,7 +15,7 @@ class Character < ActiveRecord::Base
     end
 
     def armory_url
-        return "http://#{self.realm.hostname}/character-achievements.xml?r=#{ CGI.escape( self.realm.name ) }&n=#{ CGI.escape( self.name ) }"
+        return "http://#{self.realm.hostname}/character-achievements.xml?r=#{ CGI.escape( self.realm.name ) }&n=#{ CGI.escape( self.name ) }&rhtml=no"
     end
 
     def refresh_from_armory( do_backfill = false )

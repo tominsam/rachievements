@@ -7,6 +7,11 @@
   
 <% else %>
 
+  <% if @page %>
+    <br>
+    <p>showing page <%= @page %> of <%= @total %> achievements. <%= link_to "Next page »", :page => @page + 1 %></p>
+  <% end %>
+
   <% for date, list in achievement_list.group_by{|a| a.created_at.to_date }.sort_by{|d,list| d }.reverse %>
 
     <h2><%= date.strftime("%A %d %B %Y") %></h2>
@@ -15,6 +20,11 @@
       <%= render :partial => "shared/single_achievement", :object => cach %>
     <% end %>
 
+  <% end %>
+
+  <% if @page %>
+    <br>
+    <p>showing page <%= @page %> of <%= @total %> achievements. <%= link_to "Next page »", :page => @page + 1 %></p>
   <% end %>
 
 <% end %>

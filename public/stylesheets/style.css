@@ -99,3 +99,7 @@ table td, table th {
 .data-freshness {
     opacity: 0.7;
 }
+
+.first {
+  color: #00aa00;
+}

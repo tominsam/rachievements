@@ -3,13 +3,9 @@
 
 class ApplicationController < ActionController::Base
     helper :all # include all helpers, all the time
-    include ExceptionNotifiable
+    #include ExceptionNotifiable
 
-    layout "main"
-
-    # See ActionController::RequestForgeryProtection for details
-    # Uncomment the :secret if you're not using the cookie session store
-    protect_from_forgery # :secret => '299a579a0d5c0a27f1777564a5f4e04e'
+    protect_from_forgery
 
     protected
 

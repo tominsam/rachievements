@@ -3,12 +3,18 @@ class GuildController < ApplicationController
     before_filter :guild_from_params
     
     def show
-      # get a number of days of achievements, rather than a number-limited list.
-      @items = @guild.character_achievements.all( :conditions =>  [ 'character_achievements.created_at >= ?', Time.now - 10.days ], :order => "character_achievements.created_at desc" )
-      respond_to do |format|
-        format.html 
-        format.js { render :layout => false }
-      end
+        @page = params[:page].to_i
+        if @page == 0
+            @page = 1
+        end
+        @items = @guild.guild_achievements.paginate(@page, 30).includes(:character)
+        @total = @guild.guild_achievements.count
+        @items.length # have to call this. don't understand why.
+
+        respond_to do |format|
+            format.html 
+            format.js { render :layout => false }
+        end
     end
     
     def members
@@ -22,12 +28,12 @@ class GuildController < ApplicationController
         # TODO - there's probably a useful helper for this stuff.
         @title = "Achievements for #{ @guild.name }"
         @guid = "tag:achievements.heroku.com,2009-03-06:/#{ @realm.region }/#{ @realm.urltoken }/guild/#{ @guild.urltoken }"
-        @items = @guild.character_achievements.all( :limit => 20, :order => "character_achievements.created_at desc" )
+        @items = @guild.guild_achievements.limit(30).includes(:character)
         render :template => "shared/feed", :layout => false
     end
     
     def summary
-        @items = @guild.character_achievements.all( :conditions => [ 'character_achievements.created_at >= ?', Date.today - 1.week ] )
+        @items = @guild.guild_achievements.where( [ 'created_at >= ?', Date.today - 1.week ] )
         @people = @items.group_by{|i| i.character }.sort_by{|character, items| [ character.achpoints * -1, character.rank ] }
         @level_80 = @guild.characters.count(:conditions => { :level => 80 } )
         @total = @guild.characters.count
@@ -41,7 +47,7 @@ class GuildController < ApplicationController
             return render_404
         end
         # no limit on this one, let's see everything. There will be at most #guild members rows
-        @items = @guild.character_achievements.all( :conditions => { :achievement_id => @achievement.id }, :order => "character_achievements.created_at desc" )
+        @items = @guild.guild_achievements.where( :achievement_id => @achievement.id ).includes(:character)
         respond_to do |format|
           format.html 
           format.js { render :layout => false }
