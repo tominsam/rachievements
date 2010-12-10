@@ -8,7 +8,7 @@ class GuildMailer < ActionMailer::Base
     def GuildMailer.send_weekly_summaries
         # call this method on mondays. It can cope with being called more than
         # once on a monday, but don't call it all the time.
-        Guild.having( [ "email_sent_at < ? or email_sent_at is null", Time.now - 2.days ] ).each{|g|
+        Guild.where( [ "email_sent_at < ? or email_sent_at is null", Time.now - 2.days ] ).each{|g|
             if !g.email.blank?
                 puts "#{ g.to_s }"
                 GuildMailer.deliver_weekly_summary( g )
