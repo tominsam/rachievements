@@ -1,4 +1,7 @@
-<p>Hello campers! It's been another exciting week in Guild-land for <%= link_to h(@guild.name), guild_url( @guild ) %>. We currently have <%= pluralize @level_80, "level 80" %>, and <%= pluralize @total, "members" %>.</p>
+<p>Hello campers! It's been another exciting week in Guild-land for
+  <%= link_to h(@guild.name), guild_url( @guild ) %>.
+  We currently have <%= pluralize @level_85, "level 85" %>,
+  and <%= pluralize @total, "members" %>.</p>
 
 <% if @levels.size > 0 %>
   <p>Exciting milestones:</p>
