@@ -15,7 +15,7 @@ task :cron => :environment do
         total += 1
         if character.refresh_from_armory
             count += 1
-            if !guilds.contains? character.guild
+            if !guilds.index character.guild
                 guilds << character.guild
             end
         end
