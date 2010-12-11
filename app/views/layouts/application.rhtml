@@ -1,6 +1,7 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <html>
     <head>
+      <meta charset="utf-8"> 
       <title><%= @title || "Guild achievements" %></title>
       <meta name="apple-mobile-web-app-capable" content="yes" />
       <meta name="viewport" content="user-scalable=no, width=device-width" />
@@ -9,7 +10,6 @@
       <%= stylesheet_link_tag 'style.css', :media => "screen and (min-width: 481px)" %>
       <%= stylesheet_link_tag 'iphone.css', :media => "only screen and (max-width: 480px)" %>
       <%= yield :rss_autodiscovery %>
-      <!-- http://www.wowhead.com/?forums&topic=3464 -->
     </head>
     <body>
 
@@ -23,7 +23,10 @@
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
     <%= javascript_include_tag "tablesort.min.js" %>
+
+    <!-- http://www.wowhead.com/?forums&topic=3464 -->
     <script type="text/javascript" src="http://www.wowhead.com/widgets/power.js"></script>
+
     <script type="text/javascript">
         function iPhoneOS() {
             var version = navigator.userAgent.match('iPod') || navigator.userAgent.match('iPhone') ? 1.0 : false;
