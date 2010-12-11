@@ -29,8 +29,10 @@ class GuildMailer < ActionMailer::Base
             raise "no email address for guild #{ guild }"
         end
         
-        # update guild object to note last send date. Do this before sending, to avoid nasty failure mode.
-        guild.update_attributes!( :email_sent_at => Time.now )
+        if !force
+            # update guild object to note last send date. Do this before sending, to avoid nasty failure mode.
+            guild.update_attributes!( :email_sent_at => Time.now )
+        end
         
         subject = "The magical world of #{ guild.name }, week beginning #{ (Time.now - 7.days).strftime("%d %B") }"
 
