@@ -35,10 +35,14 @@ class GuildController < ApplicationController
     def summary
         @items = @guild.guild_achievements.where( [ 'created_at >= ?', Date.today - 1.week ] )
         @people = @items.group_by{|i| i.character }.sort_by{|character, items| [ character.achpoints * -1, character.rank ] }
+        @people.each{|person,items|
+            # replace items in place
+            items[0..items.length] = items.sort_by{|i| [ (i.first ? 0 : 1), i.achievement_id * -1 ] }
+        }
         @level_80 = @guild.characters.count(:conditions => { :level => 80 } )
         @total = @guild.characters.count
         @levels = @items.select{|i| i.achievement.name.match(/^Level \d+/) }.map{|i| [ i.character, i.achievement.name.downcase ] }.sort_by{|char, level| level }.reverse.uniq_by{|character, level| character }
-        render :layout => false, :template => "guild_mailer/weekly_summary.text.html.rhtml", :content_type => "text/html"
+        render :layout => false, :template => "guild_mailer/weekly_summary.html.rhtml", :content_type => "text/html"
     end
     
     def achievement

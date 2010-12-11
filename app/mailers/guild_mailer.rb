@@ -36,6 +36,10 @@ class GuildMailer < ActionMailer::Base
 
         @guild = guild
         @items = @guild.guild_achievements.where( [ 'created_at >= ?', Date.today - 1.week ] ).includes(:character)
+        @people.each{|person,items|
+            # replace items in place
+            items[0..items.length] = items.sort_by{|i| [ (i.first ? 0 : 1), i.achievement_id * -1 ] }
+        }
         @people = @items.group_by{|i| i.character }.sort_by{|character, items| [ character.achpoints * -1, character.rank ] }
         @level_85 = @guild.characters.count(:conditions => [ "level >= 85" ] )
         @total = @guild.characters.count
