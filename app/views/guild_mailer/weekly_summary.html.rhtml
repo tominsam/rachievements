@@ -19,7 +19,7 @@
 <% for character, items in @people %>
 <p><%= link_to h(character.name), character_url(character, @guild.realm) %> (level <%= character.level %> <%= character.classname %>, <%= character.achpoints %> achievement points) gained the following achievements:</p>
 <ul>
-  <% for item in ( items.size > 15 ? items[0,14] : items ) %>
+  <% for item in items.sort_by{|i| i.achievement_id }.reverse[0,10] %>
     <li><% if item.respond_to? :first and item.first %>Guild first <% end %>
       <%= link_to h(item.achievement.name), achievement_url(item.achievement, item.character.guild) %>
       (<%= item.achievement.description %>)
