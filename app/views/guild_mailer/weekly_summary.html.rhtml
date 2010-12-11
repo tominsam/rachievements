@@ -1,3 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      font-family: Trebuchet, "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  
 <p>Hello campers! It's been another exciting week in Guild-land for
   <%= link_to h(@guild.name), guild_url( @guild ) %>.
   We currently have <%= pluralize @level_85, "level 85" %>,
@@ -18,11 +31,11 @@
 
 <% for character, items in @people %>
 <p><%= link_to h(character.name), character_url(character, @guild.realm) %> (level <%= character.level %> <%= character.classname %>, <%= character.achpoints %> achievement points) gained the following achievements:</p>
-<ul>
-  <% for item in items.sort_by{|i| i.achievement_id }.reverse[0,10] %>
-    <li><% if item.respond_to? :first and item.first %>Guild first <% end %>
+<ul style="font-size: 90%">
+  <% for item in items[0,15] %>
+    <li><% if item.respond_to? :first and item.first %><span style="color: #007700">Guild first</span> <% end %>
       <%= link_to h(item.achievement.name), achievement_url(item.achievement, item.character.guild) %>
-      (<%= item.achievement.description %>)
+      <span style="color: #666">(<%= item.achievement.description %>)</span>
     </li>
   <% end %>
   <% if items.size > 15 %>
@@ -39,3 +52,6 @@ NOTHING happened at ALL. Oh the HUMANITY. I don't think I can go ON like this.</
 <% end %>
 
 <p>See everything that's going down <%= link_to "on the guild page", guild_url( @guild ) %>.</p>
+
+</body>
+</html>
