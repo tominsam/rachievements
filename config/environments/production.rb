@@ -37,13 +37,10 @@ Rachievement::Application.configure do
   # Disable delivery errors, bad email addresses will be ignored
   config.action_mailer.raise_delivery_errors = true
   
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-      :port=>25,
-      :address=>"localhost",
-      :enable_starttls_auto=>false
+  config.action_mailer.delivery_method = :sendmail
+  config.action_mailer.sendmail_settings = {
+      :arguments => "-i", # I use ssmtp, which doesn't support -t
   }
-
   
 
   # Enable threaded mode
